@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { translations } from './translations';
-import WebGLBackground from './WebGLBackground';
 
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
@@ -14,7 +13,6 @@ function App() {
 
   const t = translations[lang];
 
-  // WebGL background animation is now handled by WebGLBackground component
 
   // Typewriter effect
   useEffect(() => {
@@ -69,8 +67,6 @@ function App() {
 
   return (
     <>
-      <WebGLBackground />
-
       {/* Navigation */}
       <nav className="top-nav">
         <a href="#hero" className="top-nav-logo">
@@ -106,42 +102,42 @@ function App() {
       </nav>
 
       {/* Page 1: Hero */}
-      <div className="ui-layer" id="hero">
-        <header>
+      <div className="hero-section" id="hero">
+        <iframe className="hero-anim" src="/anim/anim-hero.html" title="MA Animation"></iframe>
+        <div className="hero-content">
           <div className="brand-pill">
             <div className="status-dot"></div>
             <span>{t['hero.tagline']}</span>
           </div>
-        </header>
-        <main>
-          <div className="data-block data-tl">
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: 2.2 }}>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.nodes']}</span>50K+</li>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.tps']}</span>10M+</li>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.users']}</span>1M+</li>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.tvl']}</span>$2.5B</li>
-            </ul>
-          </div>
+          <h1 className="hero-title">
+            {t['hero.title'].split('\n').map((line, i) => (
+              <span key={i}>{line}<br /></span>
+            ))}
+          </h1>
           <div className="subtitle-pill-cluster">
             <a href="https://ma-chain.xyz/" className="pill" target="_blank" rel="noopener noreferrer">{t['hero.pill1']}</a>
             <a href="#" className="pill accent" onClick={handleComingSoon}>{t['hero.pill2']}</a>
             <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill3']}</a>
             <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill4']}</a>
           </div>
-          <div className="data-block data-tr">
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: 2.2 }}>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.nodes']}</span>50K+</li>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.tps']}</span>10M+</li>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.users']}</span>1M+</li>
-              <li><span style={{ color: 'var(--terra-green)' }}>{t['stats.tvl']}</span>$2.5B</li>
-            </ul>
+          <div className="hero-stats-bar">
+            <div className="hero-stat-item">
+              <div className="hero-stat-value">50K+</div>
+              <div className="hero-stat-label">{t['stats.nodes'].replace(/[：:]/g, '')}</div>
+            </div>
+            <div className="hero-stat-item">
+              <div className="hero-stat-value">10M+</div>
+              <div className="hero-stat-label">TPS</div>
+            </div>
+            <div className="hero-stat-item">
+              <div className="hero-stat-value">1M+</div>
+              <div className="hero-stat-label">{t['stats.users'].replace(/[：:]/g, '')}</div>
+            </div>
+            <div className="hero-stat-item">
+              <div className="hero-stat-value">$2.5B</div>
+              <div className="hero-stat-label">TVL</div>
+            </div>
           </div>
-        </main>
-        <div className="stats-subtitle-wrapper">
-          <div className="stats-subtitle-graphic">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="8" fill="#00E5C4" filter="drop-shadow(0 0 10px rgba(0,229,196,0.6))" /></svg>
-          </div>
-          <span>{t['hero.subtitle']}</span>
         </div>
         <div className="grunge-map">
           <div className="footer-content">

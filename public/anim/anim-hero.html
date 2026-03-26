@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MA Anim</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#000}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+.ui_animation{display:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="ui_animation">
+<select id="bMode"><option value="0">噪声</option><option value="1">径向波</option><option value="2">螺旋扫波</option><option value="3" selected>双轴交错</option><option value="4">分组错相</option></select>
+<input id="cell" type="range" min="12" max="120" step="1"/>
+<input id="gapX" type="number" min="0" max="240" step="1"/>
+<input id="gapY" type="number" min="0" max="240" step="1"/>
+<input id="scale" type="range" min="0.25" max="3" step="0.01"/>
+<input id="minS" type="range" min="0" max="1" step="0.01"/>
+<input id="maxS" type="range" min="0" max="2" step="0.01"/>
+<input id="period" type="range" min="1.5" max="10" step="0.1"/>
+<input id="breath" type="checkbox"/>
+<input id="nPow" type="range" min="2" max="12" step="0.1"/>
+<input id="kFac" type="range" min="0" max="0.7" step="0.01"/>
+<input id="radLenU" type="range" min="2" max="60" step="1"/>
+<input id="spiTurns" type="range" min="0" max="8" step="0.1"/>
+<input id="spiLenU" type="range" min="2" max="60" step="1"/>
+<input id="crossLenXU" type="range" min="2" max="60" step="1"/>
+<input id="crossLenYU" type="range" min="2" max="60" step="1"/>
+<input id="groupSizeU" type="range" min="1" max="20" step="1"/>
+<input id="groupPhaseJit" type="range" min="0" max="1" step="0.01"/>
+<input id="noiseScaleU" type="range" min="1" max="40" step="1"/>
+<input id="noiseSpeedU" type="range" min="0" max="5" step="0.01"/>
+<input id="noiseDeg" type="range" min="0" max="360" step="1"/>
+<input id="noiseOct" type="range" min="1" max="4" step="1"/>
+<input id="shapeAmp" type="range" min="0" max="1.2" step="0.01"/>
+<input id="springK" type="range" min="2" max="60" step="1"/>
+<input id="damp" type="range" min="0" max="6.6" step="0.05"/>
+<input id="tension" type="range" min="0" max="56" step="0.05"/>
+<input id="brushR" type="range" min="10" max="240" step="1"/>
+<input id="brushF" type="range" min="50" max="3000" step="10"/>
+<input id="fieldStep" type="range" min="6" max="32" step="1"/>
+<input id="isoScale" type="checkbox"/>
+<input id="full9" type="checkbox"/>
+<input id="marginP" type="range" min="0" max="4" step="0.25"/>
+<input id="useSpeed" type="checkbox"/>
+<input id="vTau" type="range" min="0" max="0.6" step="0.01"/>
+<input id="vMax" type="number" min="10" max="20000" step="10"/>
+<input id="kCoef" type="number" step="0.001"/>
+<input id="dCoef" type="number" step="0.001"/>
+<input id="tCoef" type="number" step="0.001"/>
+<input id="rCoef" type="number" step="0.01"/>
+<input id="fCoef" type="number" step="0.1"/>
+<input id="inflMax" type="range" min="0" max="1.5" step="0.01"/>
+<input id="inflResp" type="range" min="0" max="3" step="0.01"/>
+<input id="inflDecay" type="range" min="0" max="4" step="0.01"/>
+<input id="inflVRef" type="number" min="50" max="20000" step="10"/>
+<input id="inflVDead" type="number" min="0" max="2000" step="10"/>
+<input id="capBase" type="range" min="0" max="2" step="0.01"/>
+<input id="capK" type="range" min="0" max="3" step="0.01"/>
+<input id="reentryMs" type="number" min="0" max="1000" step="10"/>
+<input id="logoMinS" type="range" min="0" max="2" step="0.01"/>
+<input id="logoMaxS" type="range" min="0" max="2" step="0.01"/>
+<input id="lensFeather" type="range" min="0" max="0.6" step="0.01"/>
+<span id="cellv"></span><span id="scalev"></span><span id="minSv"></span><span id="maxSv"></span>
+<span id="periodv"></span><span id="nPowv"></span><span id="kFacv"></span>
+<span id="radLenUv"></span><span id="spiTurnsv"></span><span id="spiLenUv"></span>
+<span id="crossLenXUv"></span><span id="crossLenYUv"></span><span id="groupSizeUv"></span><span id="groupPhaseJitv"></span>
+<span id="noiseScaleUv"></span><span id="noiseSpeedUv"></span><span id="noiseDegv"></span><span id="noiseOctv"></span>
+<span id="shapeAmpv"></span><span id="springKv"></span><span id="dampv"></span><span id="tensionv"></span>
+<span id="brushRv"></span><span id="brushFv"></span><span id="fieldStepv"></span><span id="marginPv"></span>
+<span id="vTauv"></span><span id="speedv"></span><span id="inflMaxv"></span><span id="inflRespv"></span>
+<span id="inflDecayv"></span><span id="capBasev"></span><span id="capKv"></span>
+<span id="logoMinSv"></span><span id="logoMaxSv"></span><span id="lensFeatherv"></span>
+</div>
+<script>
+// ===== FIX FLASHING =====
+// Root cause: animation.js resize() → setCanvasAndField() → initField() → createTexture()
+// This destroys and recreates the entire WebGL field, causing a visible flash.
+// Inside an iframe, the "resize" event can fire spuriously (scrollbar changes, sub-pixel diffs).
+//
+// Solution: Completely suppress the resize event listener. The iframe is 100vw x 100vh
+// and won't actually change size. We only allow one initial setup.
+// We also clear any stale localStorage that might conflict with the intro animation.
+try { localStorage.removeItem('grid_world_inflate_v4_calm_dark'); } catch(e){}
+
+// Block ALL resize events from reaching animation.js
+window.addEventListener('resize', function(e) { e.stopImmediatePropagation(); }, true);
+</script>
+<script src="animation.js?v=20260211-ma"></script>
+<script>
+// Widen M-A gap
+try {
+  overlayCfg.charGapU = 52;
+  rebuildOverlay();
+} catch(e) {}
+</script>
+</body>
+</html>
