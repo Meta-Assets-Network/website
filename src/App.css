@@ -45,8 +45,6 @@ body.lang-zh .t-serif { font-family: var(--zh-serif); }
 body.lang-zh .t-mono  { font-family: var(--zh-sans); }
 body.lang-zh .t-display { font-family: var(--zh-display); }
 
-#canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.8; pointer-events: none; }
-
 .ui-layer { position: relative; z-index: 10; width: 100%; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; pointer-events: none; scroll-snap-align: start; flex-shrink: 0; }
 
 button, a, .interactive { pointer-events: auto; cursor: pointer; }
@@ -121,9 +119,6 @@ header { padding: var(--pad-md); padding-top: 72px; display: flex; justify-conte
 .brand-pill { display: inline-flex; align-items: center; gap: 8px; }
 .status-dot { width: 8px; height: 8px; background-color: var(--terra-green); box-shadow: 0 0 10px var(--terra-green); border-radius: 50%; animation: pulse 2s infinite; }
 main { display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: var(--pad-md); }
-.hero-title-wrapper { position: relative; text-align: center; }
-h1 { font-family: 'Abril Fatface', serif; font-size: clamp(6rem,18vw,22rem); line-height: 0.8; color: var(--ink); position: relative; z-index: 2; letter-spacing: -0.04em; text-align: center; text-shadow: 0 0 20px rgba(0,229,196,0.2); }
-.title-line { height: 2px; background: var(--ink); position: absolute; top: 50%; width: 100vw; left: 50%; transform: translate(-50%,-50%); z-index: 1; opacity: 0.3; }
 .stats-subtitle-wrapper { position: relative; display: flex; align-items: center; gap: 16px; padding: 0 32px; z-index: 2; margin-bottom: 1vw; }
 .stats-subtitle-graphic { width: 32px; height: 32px; flex-shrink: 0; }
 .stats-subtitle-graphic svg { width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(0,229,196,0.5)); }
@@ -139,8 +134,6 @@ body.lang-zh .data-block { font-family: var(--zh-serif); }
 .data-block em { font-style: normal; color: var(--terra-green); text-shadow: 0 0 12px rgba(0,229,196,0.5); font-weight: 600; }
 .data-tl { top: 20%; left: 5%; text-align: left; }
 .data-tr { top: 25%; right: 5%; text-align: right; }
-.star-graphic { position: absolute; width: 40px; height: 40px; top: -20px; right: -40px; }
-.star-graphic svg { fill: none; stroke: var(--terra-green); stroke-width: 1.5; filter: drop-shadow(0 0 5px var(--terra-green)); }
 
 /* ===== Stats Panel ===== */
 .grunge-map { width: 100%; min-height: 25vh; background-color: transparent; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: var(--pad-md); border-top: var(--border-width) solid rgba(255,255,255,0.1); margin-top: auto; }
