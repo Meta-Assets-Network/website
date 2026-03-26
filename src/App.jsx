@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 import { translations } from './translations';
 
@@ -85,7 +86,7 @@ function App() {
               {t['nav.whitepaper']} <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
             </a>
             <div className="nav-dropdown-menu">
-              <a href="#whitepaper-technical" className="nav-dropdown-item" onClick={() => { setMenuOpen(false); setWpDropdownOpen(false); }}>{t['nav.wp_technical']}</a>
+              <Link to="/whitepaper-technical" className="nav-dropdown-item" onClick={() => { setMenuOpen(false); setWpDropdownOpen(false); }}>{t['nav.wp_technical']}</Link>
             </div>
           </div>
           <a href="https://ma-chain.xyz/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.explorer']}</a>
@@ -243,7 +244,7 @@ function App() {
         </table>
       </section>
 
-      {/* Page: WEB4.0 Core Spirit */}
+      {/* Page: How MAC Achieves True Web 4.0 */}
       <section className="page-spirit" id="page-spirit">
         <div className="ps-header">
           <h2>{t['ps.title']}</h2>
