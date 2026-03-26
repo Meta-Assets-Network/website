@@ -348,6 +348,21 @@ function App() {
                 <div className="p3-face p3-right"></div>
                 <div className="p3-face p3-top"></div>
                 <div className="p3-face p3-bottom"></div>
+                <div className="p3-kb">
+                  <div className="p3-kb-base">
+                    <div className="p3-keys">
+                      <div className="p3-key dk"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key dk w15"></div>
+                      <div className="p3-key dk w15"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key dk w15"></div>
+                      <div className="p3-key dk w2"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key"></div><div className="p3-key dk w2"></div>
+                      <div className="p3-key dk"></div><div className="p3-key dk"></div><div className="p3-key dk w15"></div><div className="p3-key sp"></div><div className="p3-key dk w15"></div><div className="p3-key dk"></div><div className="p3-key ac"></div>
+                    </div>
+                  </div>
+                  <div className="p3-kb-front"></div>
+                  <div className="p3-kb-back"></div>
+                  <div className="p3-kb-left"></div>
+                  <div className="p3-kb-right"></div>
+                  <div className="p3-kb-shadow"></div>
+                </div>
               </div>
             </div>
           </div>
