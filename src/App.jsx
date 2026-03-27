@@ -404,7 +404,7 @@ function App() {
         <div className="p4-container">
           <div className="p4-gallery">
             <div className="p4-gallery-stage">
-              <div className={`p4-phone ${p4idx === 0 ? 'p4-phone-left' : p4idx === 1 ? 'p4-phone-center' : p4-phone-right}`} data-p4="0">
+              <div className={`p4-phone ${p4idx === 0 ? 'p4-phone-left' : p4idx === 1 ? 'p4-phone-center' : 'p4-phone-right'}`} data-p4="0">
                 <div className="p4-phone-frame"><img src={phoneImgs[0]} alt="" /></div>
               </div>
               <div className={`p4-phone ${p4idx === 0 ? 'p4-phone-center' : p4idx === 1 ? 'p4-phone-right' : p4idx === 2 ? 'p4-phone-left' : 'p4-phone-center'}`} data-p4="1">
