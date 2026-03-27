@@ -1,40 +1,42 @@
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from 'wagmi'
+import metamaskLogo from './assets/wallets/metamask.svg'
+import phantomLogo from './assets/wallets/phantom.png'
 
 const CHAIN_ID = 20260131
 
-const WALLET_LOGOS = {
-  metaMask: 'https://raw.githubusercontent.com/MetaMask/brand-resources/master/assets/SVG/MetaMask-icon.svg',
-  tokenPocket: 'https://tokenpocket-pro.s3.ap-east-1.amazonaws.com/logo/TP.png',
-  okx: 'https://www.okx.com/cdn/assets.OKX/ord/okx-wallet-logo.png',
-  phantom: 'https://phantom.app/img/logo.png',
-  coinbase: 'https://www.coinbase.com/og-cover.png',
-  injected: 'https://cdn-icons-png.flaticon.com/512/1006/1006771.png',
+const WALLET_INFO = {
+  metaMask: { name: 'MetaMask', logo: metamaskLogo, key: 'metaMask' },
+  phantom: { name: 'Phantom', logo: phantomLogo, key: 'phantom' },
+  tokenPocket: { name: 'TokenPocket', logo: 'https://tokenpocket-pro.s3.ap-east-1.amazonaws.com/logo/TP.png', key: 'tokenPocket' },
+  okx: { name: 'OKX Wallet', logo: 'https://www.okx.com/cdn/assets.OKX/ord/okx-wallet-logo.png', key: 'okx' },
+  coinbase: { name: 'Coinbase Wallet', logo: 'https://www.coinbase.com/og-cover.png', key: 'coinbase' },
+  injected: { name: 'Browser Wallet', logo: 'https://cdn-icons-png.flaticon.com/512/1006/1006771.png', key: 'injected' },
 }
 
 function getWalletInfo(connector) {
   const id = connector.id.toLowerCase()
-  const name = connector.name
+  const name = connector.name.toLowerCase()
 
-  if (id.includes('metamask') || name.toLowerCase().includes('metamask')) {
-    return { name: 'MetaMask', logo: WALLET_LOGOS.metaMask, key: 'metaMask' }
+  if (id.includes('metamask') || name.includes('metamask')) {
+    return WALLET_INFO.metaMask
   }
-  if (id.includes('phantom') || name.toLowerCase().includes('phantom')) {
-    return { name: 'Phantom', logo: WALLET_LOGOS.phantom, key: 'phantom' }
+  if (id.includes('phantom') || name.includes('phantom')) {
+    return WALLET_INFO.phantom
   }
-  if (id.includes('tokenpocket') || name.toLowerCase().includes('tokenpocket')) {
-    return { name: 'TokenPocket', logo: WALLET_LOGOS.tokenPocket, key: 'tokenPocket' }
+  if (id.includes('tokenpocket') || name.includes('tokenpocket')) {
+    return WALLET_INFO.tokenPocket
   }
-  if (id.includes('okx') || name.toLowerCase().includes('okx')) {
-    return { name: 'OKX Wallet', logo: WALLET_LOGOS.okx, key: 'okx' }
+  if (id.includes('okx') || name.includes('okx')) {
+    return WALLET_INFO.okx
   }
-  if (id.includes('coinbase') || name.toLowerCase().includes('coinbase')) {
-    return { name: 'Coinbase Wallet', logo: WALLET_LOGOS.coinbase, key: 'coinbase' }
+  if (id.includes('coinbase') || name.includes('coinbase')) {
+    return WALLET_INFO.coinbase
   }
-  if (id === 'injected' || id === 'browser wallet') {
-    return { name: 'Browser Wallet', logo: WALLET_LOGOS.injected, key: 'injected' }
+  if (id === 'injected') {
+    return WALLET_INFO.injected
   }
 
-  return { name: connector.name || 'Unknown', logo: WALLET_LOGOS.injected, key: id }
+  return { name: connector.name || 'Unknown', logo: WALLET_INFO.injected.logo, key: id }
 }
 
 export function WalletModal({ onClose }) {
@@ -106,7 +108,7 @@ export function WalletModal({ onClose }) {
                   src={wallet.logo}
                   alt={wallet.name}
                   className="wallet-option-logo"
-                  onError={(e) => { e.target.style.display = 'none' }}
+                  onError={(e) => { e.target.src = WALLET_INFO.injected.logo }}
                 />
                 <span className="wallet-option-name">{wallet.name}</span>
               </button>

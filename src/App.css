@@ -235,7 +235,7 @@ body.lang-zh .hero-stat-label { font-family: var(--zh-sans); font-size: 0.8rem; 
     .top-nav-wallet { display: none; }
     .lang-switch { display: none; }
     .top-nav-links .lang-switch-mobile { display: inline-block; background: rgba(0,229,196,0.15); color: #00E5C4; padding: 16px 20px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-align: left; margin-top: 20px; border: 1px solid rgba(0,229,196,0.3); }
-    .top-nav-links .top-nav-wallet-mobile { display: inline-block; padding: 16px 20px; border-radius: 12px; font-size: 1rem; font-weight: 700; text-align: center; margin-top: 16px; width: 100%; border: none; box-sizing: border-box; }
+    .top-nav-links .top-nav-wallet-mobile { display: none; }
     .nav-dropdown { width: 100%; }
     .nav-dropdown-trigger { width: 100%; justify-content: space-between; }
     .nav-dropdown-menu,

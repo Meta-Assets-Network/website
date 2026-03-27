@@ -97,11 +97,6 @@ function App() {
           <a href="#" className="top-nav-link top-nav-link-accent" onClick={handleComingSoon}>{t['nav.clawmask']}</a>
           <a href="#" className="top-nav-link" onClick={handleComingSoon}>{t['nav.miningpool']}</a>
           <button className="lang-switch lang-switch-mobile" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
-          <div className="top-nav-wallet-mobile">
-            <button className="wallet-btn" onClick={() => setWalletModalOpen(true)}>
-              {isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : t['nav.wallet']}
-            </button>
-          </div>
         </div>
         <button className="lang-switch" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
         <button className="wallet-btn top-nav-wallet" onClick={() => setWalletModalOpen(true)}>
