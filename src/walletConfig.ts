@@ -1,6 +1,7 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet, polygon, arbitrum, optimism, base } from 'viem/chains';
 import { injected } from 'wagmi/connectors';
+import { metaMask } from 'wagmi/connectors';
 
 // Meta Assets Chain config
 const metaAssetsChain = {
@@ -27,7 +28,10 @@ export const config = createConfig({
     [base.id]: http(),
   },
   connectors: [
-    injected(),
+    metaMask(),
+    injected({
+      target: 'isTokenPocket',
+    }),
   ],
 });
 

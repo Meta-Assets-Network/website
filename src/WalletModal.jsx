@@ -1,42 +1,30 @@
-import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from 'wagmi'
+import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
 import metamaskLogo from './assets/wallets/metamask.svg'
-import phantomLogo from './assets/wallets/phantom.png'
+import tokenPocketLogo from 'https://tokenpocket-pro.s3.ap-east-1.amazonaws.com/logo/TP.png'
 
 const CHAIN_ID = 20260131
 
-const WALLET_INFO = {
-  metaMask: { name: 'MetaMask', logo: metamaskLogo, key: 'metaMask' },
-  phantom: { name: 'Phantom', logo: phantomLogo, key: 'phantom' },
-  tokenPocket: { name: 'TokenPocket', logo: 'https://tokenpocket-pro.s3.ap-east-1.amazonaws.com/logo/TP.png', key: 'tokenPocket' },
-  okx: { name: 'OKX Wallet', logo: 'https://www.okx.com/cdn/assets.OKX/ord/okx-wallet-logo.png', key: 'okx' },
-  coinbase: { name: 'Coinbase Wallet', logo: 'https://www.coinbase.com/og-cover.png', key: 'coinbase' },
-  injected: { name: 'Browser Wallet', logo: 'https://cdn-icons-png.flaticon.com/512/1006/1006771.png', key: 'injected' },
-}
+// Filter out wallets that don't support Ethereum
+const ETHEREUM_WALLET_IDS = ['metaMask', 'tokenPocket', 'coinbaseWallet', 'okxWallet', 'injected']
 
 function getWalletInfo(connector) {
   const id = connector.id.toLowerCase()
   const name = connector.name.toLowerCase()
 
   if (id.includes('metamask') || name.includes('metamask')) {
-    return WALLET_INFO.metaMask
-  }
-  if (id.includes('phantom') || name.includes('phantom')) {
-    return WALLET_INFO.phantom
+    return { name: 'MetaMask', logo: metamaskLogo, key: 'metaMask' }
   }
   if (id.includes('tokenpocket') || name.includes('tokenpocket')) {
-    return WALLET_INFO.tokenPocket
-  }
-  if (id.includes('okx') || name.includes('okx')) {
-    return WALLET_INFO.okx
+    return { name: 'TokenPocket', logo: tokenPocketLogo, key: 'tokenPocket' }
   }
   if (id.includes('coinbase') || name.includes('coinbase')) {
-    return WALLET_INFO.coinbase
+    return { name: 'Coinbase Wallet', logo: 'https://www.coinbase.com/og-cover.png', key: 'coinbase' }
   }
-  if (id === 'injected') {
-    return WALLET_INFO.injected
+  if (id.includes('okx') || name.includes('okx')) {
+    return { name: 'OKX Wallet', logo: 'https://www.okx.com/cdn/assets.OKX/ord/okx-wallet-logo.png', key: 'okx' }
   }
-
-  return { name: connector.name || 'Unknown', logo: WALLET_INFO.injected.logo, key: id }
+  // Default to generic injected/browser wallet
+  return { name: connector.name || 'Browser Wallet', logo: metamaskLogo, key: 'injected' }
 }
 
 export function WalletModal({ onClose }) {
@@ -45,9 +33,20 @@ export function WalletModal({ onClose }) {
   const { disconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
 
+  // Filter connectors to only show Ethereum-compatible wallets
+  const filteredConnectors = connectors.filter((connector) => {
+    const id = connector.id.toLowerCase()
+    const name = connector.name.toLowerCase()
+    // Exclude Phantom and other non-Ethereum wallets
+    if (id.includes('phantom') || name.includes('phantom')) return false
+    if (id.includes('solana') || name.includes('solana')) return false
+    if (id.includes('bitcoin') || name.includes('bitcoin')) return false
+    return true
+  })
+
   const handleConnect = (connector) => {
     connect({ connector })
-    onClose()
+    // Don't close modal on error - let user try again
   }
 
   const handleSwitchChain = () => {
@@ -95,7 +94,10 @@ export function WalletModal({ onClose }) {
         </div>
         <div className="wallet-modal-content">
           {error && <div className="wallet-error">{error.message}</div>}
-          {connectors.map((connector) => {
+          {filteredConnectors.length === 0 && (
+            <div className="wallet-error">No Ethereum wallet detected</div>
+          )}
+          {filteredConnectors.map((connector) => {
             const wallet = getWalletInfo(connector)
             return (
               <button
@@ -108,7 +110,7 @@ export function WalletModal({ onClose }) {
                   src={wallet.logo}
                   alt={wallet.name}
                   className="wallet-option-logo"
-                  onError={(e) => { e.target.src = WALLET_INFO.injected.logo }}
+                  onError={(e) => { e.target.style.display = 'none' }}
                 />
                 <span className="wallet-option-name">{wallet.name}</span>
               </button>
