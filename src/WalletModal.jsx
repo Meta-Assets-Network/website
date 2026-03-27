@@ -1,6 +1,6 @@
 import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
 import metamaskLogo from './assets/wallets/metamask.svg'
-import tokenPocketLogo from 'https://tokenpocket-pro.s3.ap-east-1.amazonaws.com/logo/TP.png'
+import tokenPocketLogo from './assets/wallets/tokenpocket.svg'
 
 const CHAIN_ID = 20260131
 
