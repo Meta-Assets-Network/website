@@ -2,15 +2,19 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import { translations } from './translations';
+import { WalletModal } from './WalletModal';
+import { useAccount } from 'wagmi';
 
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalActive, setModalActive] = useState(false);
   const [wpDropdownOpen, setWpDropdownOpen] = useState(false);
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [p4idx, setP4idx] = useState(0);
   const [typewriterText, setTypewriterText] = useState('');
   const typewriterRef = useRef(null);
+  const { address, isConnected } = useAccount();
 
   const t = translations[lang];
 
@@ -93,10 +97,16 @@ function App() {
           <a href="#" className="top-nav-link top-nav-link-accent" onClick={handleComingSoon}>{t['nav.clawmask']}</a>
           <a href="#" className="top-nav-link" onClick={handleComingSoon}>{t['nav.miningpool']}</a>
           <button className="lang-switch lang-switch-mobile" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
-          <a href="#" className="top-nav-wallet-mobile" onClick={handleComingSoon}>{t['nav.wallet']}</a>
+          <div className="top-nav-wallet-mobile">
+            <button className="wallet-btn" onClick={() => setWalletModalOpen(true)}>
+              {isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : t['nav.wallet']}
+            </button>
+          </div>
         </div>
         <button className="lang-switch" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
-        <button className="top-nav-wallet" onClick={handleComingSoon}>{t['nav.wallet']}</button>
+        <button className="wallet-btn top-nav-wallet" onClick={() => setWalletModalOpen(true)}>
+          {isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : t['nav.wallet']}
+        </button>
         <button className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
           <span></span><span></span><span></span>
         </button>
@@ -704,6 +714,9 @@ function App() {
           <h3 className="coming-soon-title">{t['modal.title']}</h3>
         </div>
       </div>
+
+      {/* Wallet Modal */}
+      {walletModalOpen && <WalletModal onClose={() => setWalletModalOpen(false)} />}
     </>
   );
 }
