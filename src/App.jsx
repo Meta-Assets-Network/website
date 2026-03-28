@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import { translations } from './translations';
+import { WalletModal } from './WalletModal';
+import { useAccount } from 'wagmi';
 
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
@@ -9,9 +11,11 @@ function App() {
   const [modalActive, setModalActive] = useState(false);
   const [aboutActive, setAboutActive] = useState(false);
   const [wpDropdownOpen, setWpDropdownOpen] = useState(false);
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [p4idx, setP4idx] = useState(0);
   const [typewriterText, setTypewriterText] = useState('');
   const typewriterRef = useRef(null);
+  const { address, isConnected } = useAccount();
 
   const t = translations[lang];
 
@@ -100,10 +104,11 @@ function App() {
           <a href="#" className="top-nav-link top-nav-link-accent" onClick={handleComingSoon}>{t['nav.clawmask']}</a>
           <a href="#" className="top-nav-link" onClick={handleComingSoon}>{t['nav.miningpool']}</a>
           <button className="lang-switch lang-switch-mobile" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
-          <a href="#" className="top-nav-wallet-mobile" onClick={handleComingSoon}>{t['nav.wallet']}</a>
         </div>
         <button className="lang-switch" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
-        <button className="top-nav-wallet" onClick={handleComingSoon}>{t['nav.wallet']}</button>
+        <button className="wallet-btn top-nav-wallet" onClick={() => setWalletModalOpen(true)}>
+          {isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : t['nav.wallet']}
+        </button>
         <button className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
           <span></span><span></span><span></span>
         </button>
@@ -411,7 +416,7 @@ function App() {
         <div className="p4-container">
           <div className="p4-gallery">
             <div className="p4-gallery-stage">
-              <div className={`p4-phone ${p4idx === 0 ? 'p4-phone-left' : p4idx === 1 ? 'p4-phone-center' : p4-phone-right}`} data-p4="0">
+              <div className={`p4-phone ${p4idx === 0 ? 'p4-phone-left' : p4idx === 1 ? 'p4-phone-center' : 'p4-phone-right'}`} data-p4="0">
                 <div className="p4-phone-frame"><img src={phoneImgs[0]} alt="" /></div>
               </div>
               <div className={`p4-phone ${p4idx === 0 ? 'p4-phone-center' : p4idx === 1 ? 'p4-phone-right' : p4idx === 2 ? 'p4-phone-left' : 'p4-phone-center'}`} data-p4="1">
@@ -724,6 +729,9 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Wallet Modal */}
+      {walletModalOpen && <WalletModal onClose={() => setWalletModalOpen(false)} />}
     </>
   );
 }
