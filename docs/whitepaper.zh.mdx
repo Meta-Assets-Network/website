@@ -1,0 +1,291 @@
+## 执行摘要
+
+MA 链（MetaAssets，以下简称"MA 链"）提出一种面向"现实世界算力资产（RWA）"与"链上资产（MetaAssets）"统一确权、统一计量与统一激励的区块链基础设施：通过 POCC（Proof of Computation Capacity，算力容量证明）把可审计、可托管、可租赁的真实算力设备映射为链上 Capacity Unit（容量单元）资产；再以"算力容量 + 质押"构成共识权重，在 BFT 最终性框架下实现高吞吐、低能耗、可治理升级的公链/联盟链混合架构。
+
+该路线吸收了经典 PoW 在开放网络中的抗女巫与成本锚定思想，参照 PoS 在安全性与经济激励方面的形式化研究成果，并借鉴 PoC/Proof-of-Space 在资源占用与能耗之间的折中逻辑、PoET/TEE 机制对低能耗随机性与公平性的探索以及其已知攻击面。
+
+在治理层面，MA 链引入 TSS（门限签名）作为"链上投票 + 链下门限签署"的双重执行控制：链上 Governor/Timelock 完成可验证的提案与投票，关键升级与参数变更须经门限签名共同背书，从而降低单点密钥与单一执行者风险。
+
+在资产化与合规方面，MA 链将设备与收益权以 EIP-721 兼容的 NFT 形式表达，并在"基金会监督 + 社区认可 + 挑战期"流程下完成铸造与状态变更。
+
+## 引言与背景
+
+区块链共识机制的核心矛盾可概括为：在开放或半开放网络中，如何以可度量的成本或可惩罚的抵押，抑制女巫攻击、拜占庭作恶与审查，并在吞吐、最终性、能耗与去中心化之间取得可工程化的平衡。
+
+比特币提出的 PoW/Nakamoto 共识把安全性锚定在持续消耗的外部资源上，并以最长链规则在概率意义上收敛；但 PoW 的能耗与外部性长期饱受争议。PoS 则将安全性锚定在可罚没的内部资本，形成"以经济惩罚替代能源消耗"的主流路线。
+
+BFT 类共识（PBFT、Tendermint、HotStuff 等）通过在部分同步假设下提供确定性最终性与可问责性，成为高性能链与联盟链的主干。
+
+在 PoW 与 PoS 之外，"资源证明"机制不断演化：PoC/Proof-of-Space 用存储资源替代计算资源；PoET/Proof-of-Luck 等 TEE 路线尝试用可信硬件产生随机等待或抽签。
+
+"RWA 资产上链（tokenisation）"则在金融与产业侧推动了新叙事：权威机构将 tokenisation 定义为"在可编程平台上生成并记录传统资产的数字表示"的过程。
+
+在上述背景下，MA 链的研究命题是：能否把"现实可审计的算力资产"转化为链上可组合、可治理的 MetaAssets，并用其"容量"形成新的共识权重与经济激励。
+
+## 设计目标与关键假设
+
+MA 链的目标可分为六类：
+
+1. **安全性与可问责性**：在拜占庭环境中提供可证明的安全边界，并具备可审计的作恶证据与惩罚机制。
+2. **低能耗与高吞吐**：避免 PoW 的持续能源消耗外部性，并尽可能采用 BFT 最终性减少重组成本。
+3. **算力资产化闭环**：从购入、托管、计量、租赁、收益分配到撤销处置，全流程可审计、可治理。
+4. **治理可升级**：核心"算力合约"与关键参数支持链上投票升级，并通过门限签名提供执行层的去单点化控制。
+5. **可组合的合约与资产标准**：尽量复用 EIP-721、EIP-712 等生态工具，实现跨钱包、跨工具链的兼容性。
+6. **合规可配置**：在不同司法辖区下以模块化方式实现 KYC/AML、数据隐私与 RWA 托管结构适配。
+
+### 关键参数（当前未指定）
+
+<ComparisonTable
+  headers={["参数项", "推荐可选范围", "选择依据与权衡"]}
+  rows={[
+    ["出块间隔", "1–6 秒（BFT 风格）或 6–15 秒（兼容 EVM）", "BFT 最终性吞吐与网络延迟权衡"],
+    ["纪元长度", "256–4096 blocks", "用于重计算算力容量权重与治理快照"],
+    ["验证者数量 (n)", "50–300（BFT 委员会）", "HotStuff 线性通信改善扩展性"],
+    ["拜占庭容忍 (f)", "f < n/3", "PBFT/HotStuff/Tendermint 常见安全边界"],
+    ["最低验证者质押", "1e4–1e7 MA", "需覆盖潜在作恶收益"],
+    ["POCC 权重函数", "线性、次线性（sqrt/log）或上限封顶", "线性易集中化；次线性提高边际去中心化"],
+    ["TSS 门限 (t-of-n)", "t=2/3n 或 t=(n+1)/2", "门限越高越安全但越影响可用性"],
+    ["挑战期", "24 小时 – 14 天", "短则难以提出证据，长则降低资产流动"],
+    ["罚没比例", "0.5%–100%（按违规类型分级）", "按作恶证据强度与危害级别分级"],
+  ]}
+/>
+
+## 系统架构
+
+MA 链采用"链上可验证状态机 + 链下可审计计量与门限签署"的分层架构。
+
+该思路与"链下收集观测—链上提交聚合报告"的预言机范式一致。
+
+### 关键合约组件
+
+<Callout>
+**AssetRegistry** — 设备与 RWA 元数据登记
+
+**CapacityUnitNFT** — 容量单元 NFT
+
+**Staking** — 质押与罚没
+
+**POCCConsensus** — 共识权重管理与纪元结算
+
+**ComputeReceipt** — 算力记录与租赁结算摘要上链
+
+**Governance** — Governor/Timelock + 升级控制
+
+**TSSKeyRegistry** — 门限公钥与轮换
+
+**Dispute** — 争议与仲裁接口
+</Callout>
+
+合约接口设计应尽可能遵循 EIP-165、EIP-712 与主流代理升级标准。
+
+设备侧"远程证明"是可选但强建议的安全增强。
+
+## POCC 共识机制与 TSS 驱动治理
+
+POCC 的核心思想是把"可审计的算力容量"作为一种长期资源承诺，并将其抽象为链上 Capacity Unit（CU）资产。
+
+与 PoW 的"持续消耗型成本"不同，POCC 更接近"占用/可用型资源证明"；与纯 PoS 的"资本承诺"不同，POCC 额外引入"现实设备与服务交付能力"的锚定。
+
+### POCC 的协议原语与流程
+
+为把 POCC 落地为可工程实现的共识机制，本文建议把"共识最终性"与"权重来源"解耦。
+
+1. **容量承诺**：设备通过"证明材料 + 测量结果"获得 CU；CU 的有效性与状态变更由链上合约管理。
+2. **权重计算**：每个验证者在纪元 e 的共识权重建议定义为 W = f(Stake, CU, Uptime, SlashingHistory)。
+3. **提议者抽样**：建议采用可验证随机函数（VRF）在权重分布上抽样提议者。
+4. **BFT 最终性**：采用 HotStuff/Tendermint 类两/三阶段投票，达到 2f+1 投票则最终确认。
+
+### 纪元生命周期（概念级伪代码）
+
+<CodeBlock language="pseudocode" title="纪元生命周期">{`// Epoch e lifecycle
+OnEpochStart(e):
+    seed_e <- Hash(block_{e-1}.finalized_root)
+    committee_e <- SelectValidatorsByWeight(W_{e-1}, seed_e)
+    Publish(committee_e, seed_e)
+
+DuringEpoch(e):
+    for each round r:
+        proposer <- VRF_Sample(committee_e, W_e, seed_e, r)
+        block <- proposer.BuildBlock(mempool)
+        votes <- BFT_Vote(block, committee_e)
+        if votes >= 2f+1:
+            Finalize(block)
+
+OnEpochEnd(e):
+    receipt_root <- OffchainAggregateComputeReceipts(e)
+    sig <- TSS_Sign(receipt_root, committee_e)
+    SubmitOnchain(receipt_root, sig)
+    UpdateWeights(W_{e+1})`}</CodeBlock>
+
+### TSS 驱动的链上治理、算力合约升级与参数变更投票流程
+
+MA 链治理建议采用"链上可验证决策 + 门限签名执行授权 + Timelock 延迟"的三段式控制面：
+
+- **链上决策**：基于 Governor 合约实现提案、投票、计票、通过与队列。
+- **门限签名执行授权**：关键操作在链上通过后，仍需由 TSS 委员会对"提案哈希/执行哈希"进行门限签署。
+- **Timelock 与挑战期**：即使门限签名完成，仍建议在链上 Timelock 中排队。
+
+建议的链上治理执行消息采用 EIP-712 结构化签名，避免"签名内容不可读"引发的操作风险。
+
+## 容量单元与 RWA/NFT 生命周期
+
+### 容量单元定义
+
+Capacity Unit（CU）的定义必须同时满足：可计量、可审计、可升级、可与收益权绑定。
+
+CU 的最小表达形式是 EIP-721 兼容 NFT：每个 CU-NFT 对应一台设备或一组设备在某一有效期内的容量承诺。
+
+在更强的可用性与组合性需求下，CU 也可扩展为 ERC-3525/1155 等"半同质化"或"多资产"标准。
+
+### CU 铸造流程：基金会监督与社区认可
+
+鉴于 RWA 的本质风险在于"链上 token 与链下权利/资产之间的可执行性断裂"，CU 的铸造需要引入"监督 + 认可 + 可挑战"的制度化流程：
+
+1. **申请与材料提交**：设备所有方/矿池提交购置凭证、序列号哈希、托管协议等。
+2. **托管与登记**：由 MA 基金会对设备进行托管登记，形成"可追溯的占有与控制链"。
+3. **计量与验证**：链下验证者执行基准测试与在线率观测。
+4. **社区审议与挑战期**：在链上发布"待铸造 CU 提案"，开放挑战期。
+5. **监督签署与铸造**：挑战期结束且无有效异议后，由 TSS 委员会门限签名并铸造 CU-NFT。
+6. **持续监督与状态维护**：设备在线率、固件状态与托管状态变化应触发 CU 状态更新。
+
+### 设备到 RWA 的生命周期
+
+设备生命周期建议定义为状态机，推荐状态包括：
+
+<Callout>*Purchased → Custodied → Listed → Contributing → Suspended → Revoked → Retired*</Callout>
+
+触发条件应尽量客观化：托管签收记录、在线率阈值、租赁合约状态、审计结论或仲裁裁定等。
+
+## 节点与矿池模型、经济激励
+
+MA 链建议把网络参与者划分为三类角色：验证者、矿工/算力提供者、矿池/运营商。
+
+### 质押与部署
+
+验证者同时要求两类抵押：原生代币质押（可罚没）与 CU 的绑定或委托，形成"双资源锚定"。
+
+### 算力记录与上链摘要
+
+算力记录的难点在于：链上无法高频验证大规模计算明细。因此建议采用"三层证据"：
+
+1. **设备侧签名/证明**：设备对任务执行摘要签名。
+2. **矿池聚合与异常检测**：矿池聚合多设备日志，执行统计检测与挑战响应。
+3. **TSS 报告背书**：由独立的 TSS 委员会对"纪元结算根"门限签名。
+
+### 经济模型与激励
+
+- **区块奖励与交易费**：分配给验证者与 CU 持有者。
+- **算力租赁收入**：租赁端支付租金进入结算合约；矿池按任务完成度与 SLA 分配。
+- **罚没**：至少分三层：共识层、计量层、RWA 层。
+- **流动性设计**：CU-NFT 的流动性与"现实托管/监管要求"存在张力。
+
+## 安全性、合规与运维路线
+
+### 安全性分析
+
+MA 链若采用 BFT 最终性，其安全性边界通常落在"委员会中拜占庭节点数 f < n/3"条件上。
+
+### POCC 特有攻击面
+
+- **虚假算力/虚假托管**：用伪造证明材料获取 CU；需要挑战期、抽检与门限签署降低风险。
+- **算力测量操纵**：基准测试可被针对性优化或作弊，建议采用多样化测试集。
+- **矿池集中化**：矿池聚合可能形成权力中心；应在权重函数中对单一运营商设置上限。
+- **TEE/远程证明风险**：若 POCC 强依赖 TEE/SGX，则必须继承其已知攻击面。
+- **TSS 安全与密钥管理风险**：门限签名降低了单点泄漏风险，但引入了 DKG、轮换等复杂性。
+
+### 合规与法律风险
+
+1. **RWA 权利映射与托管**：tokenisation 只是数字表示，资产权利的可执行性仍取决于合同与托管安排。
+2. **虚拟资产 AML/CFT**：若 MA 链的代币构成虚拟资产或 VASP 范畴，则需遵循 FATF 建议 15。
+3. **市场完整性与投资者保护**：IOSCO 对加密市场的政策建议强调了市场操纵与披露等监管关注点。
+
+## 实现细节建议
+
+### Solidity 接口骨架（示例）
+
+<CodeBlock language="solidity" title="ICapacityUnit.sol & ITSSKeyRegistry.sol">{`interface ICapacityUnit is IERC721 {
+    enum Status { Pending, Active, Suspended, Revoked, Retired }
+
+    struct CapacityMeta {
+        bytes32 deviceIdHash;
+        uint64  validFrom;
+        uint64  validTo;
+        uint256 ncs;           // normalized capacity score
+        Status  status;
+        bytes32 evidenceRoot;  // offchain evidence Merkle root
+    }
+
+    event CapacityMinted(uint256 indexed tokenId, bytes32 indexed deviceIdHash, uint256 ncs);
+    event CapacityStatusChanged(uint256 indexed tokenId, Status from, Status to, bytes32 reasonHash);
+    event CapacityDelegated(uint256 indexed tokenId, address indexed validator, uint256 weight);
+
+    function getCapacityMeta(uint256 tokenId) external view returns (CapacityMeta memory);
+    function setStatus(uint256 tokenId, Status to, bytes32 reasonHash, bytes calldata tssSig) external;
+    function delegateToValidator(uint256 tokenId, address validator, uint256 weight) external;
+}
+
+interface ITSSKeyRegistry {
+    event TSSKeyRotated(uint256 indexed epoch, bytes32 indexed keyId, bytes pubkeyBytes);
+    function currentKeyId() external view returns (bytes32);
+    function currentPubkey() external view returns (bytes memory);
+    function isValidSignature(bytes32 msgHash, bytes calldata sig) external view returns (bool);
+}`}</CodeBlock>
+
+### 事件设计原则
+
+所有涉及 RWA 状态变更、收益结算根提交、治理执行与密钥轮换的操作必须事件化。
+
+### 部署与迁移策略
+
+建议采用"三阶段硬化"部署策略：
+
+1. **测试网阶段**：以可观测性为第一目标，开放参数并频繁升级。
+2. **准主网（预生产）阶段**：冻结关键接口与事件；引入外部审计与赏金计划。
+3. **主网阶段**：限定升级频率与升级窗口，启用更长 Timelock。
+
+## 与现有共识机制对比分析
+
+<ComparisonTable
+  headers={["机制", "安全性锚定", "去中心化张力", "能耗特征", "最终性/可扩展性", "经济激励要点"]}
+  rows={[
+    ["PoW", "外部能耗与算力成本；最长链概率安全", "易受 ASIC/矿池集中影响", "高能耗", "概率最终性；吞吐受限", "区块奖励/手续费驱动"],
+    ["PoS", "可罚没资本；形式化协议成熟", "资本集中与委托集中", "低能耗", "可做 BFT 最终性", "质押收益 + 罚没"],
+    ["PoA", "身份/信誉背书，许可链常用", "天然中心化", "低能耗", "高吞吐、确定性最终性", "依赖组织激励"],
+    ["PoC/PoSpace", "存储容量承诺，降低持续计算", "存储规模经济与集中化", "相对低但有硬件磨损", "多为最长链概率安全", "存储投入换取出块概率"],
+    ["PoET/TEE", "可信硬件随机等待/抽签", "依赖硬件供应链", "低能耗", "可做较快确认", "节点运行成本低"],
+    ["PoUW", '共识成本与\u201C有用计算\u201D结合', "容易向算力大户集中", "取决于任务性质", "验证难、任务市场复杂", "任务方付费 + 区块激励"],
+    ["POCC (MA Chain)", "可托管/可审计算力容量 + 可罚没质押；BFT 最终性", "矿池集中与 RWA 托管集中需制度抑制", "低于 PoW", "BFT 最终性 + 链下聚合提交", "质押收益 + 租赁收益 + 罚没"],
+  ]}
+/>
+
+## 未来工作与扩展
+
+1. **跨链与可验证结算**：把 CU 与租赁结算扩展到多链生态。
+2. **基础设施云调度**：将矿池从"算力聚合"升级为"资源调度市场"。
+3. **市场机制与治理抗捕获**：引入更强的反贿选与分权机制。
+
+上述扩展均应以"可升级、可审计、可合规"为约束。
+
+## 参考文献
+
+<RefList items={[
+  "[1] A Peer-to-Peer Electronic Cash System — bitcoin.org/bitcoin.pdf",
+  "[2] A Provably Secure Proof-of-Stake Blockchain Protocol — eprint.iacr.org/2016/889",
+  "[3] SpaceMint: A Cryptocurrency Based on Proofs of Space",
+  "[4] On Elapsed Time Consensus Protocols — eprint.iacr.org/2021/086",
+  "[5] OpenZeppelin Governance — docs.openzeppelin.com",
+  "[6] FATF Updated Guidance for a Risk-Based Approach — fatf-gafi.org",
+  "[7] Cambridge Blockchain Network Sustainability Index: CBECI",
+  "[8] Practical Byzantine Fault Tolerance — csail.mit.edu",
+  "[9] BIS — Tokenisation in the context of money and other assets",
+  "[10] FSB — The Financial Stability Implications of Tokenisation",
+  "[11] RFC 9591 — FROST Threshold Signatures — datatracker.ietf.org",
+  "[12] ERC-721: Non-Fungible Token Standard — eips.ethereum.org",
+  "[13] HotStuff: BFT Consensus in the Lens of Blockchain — arxiv.org",
+  "[14] Tendermint: Consensus without Mining",
+  "[15] Verifiable Random Functions — csail.mit.edu",
+  "[16] EIP-712: Typed structured data hashing and signing",
+  "[17] ERC-1967: Proxy Storage Slots — eips.ethereum.org",
+  "[18] ERC-3525: Semi-Fungible Token — eips.ethereum.org",
+  "[19] IOSCO Policy Recommendations for Crypto and Digital Asset Markets",
+]} />

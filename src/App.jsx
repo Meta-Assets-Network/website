@@ -7,6 +7,7 @@ function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalActive, setModalActive] = useState(false);
+  const [aboutActive, setAboutActive] = useState(false);
   const [wpDropdownOpen, setWpDropdownOpen] = useState(false);
   const [p4idx, setP4idx] = useState(0);
   const [typewriterText, setTypewriterText] = useState('');
@@ -60,6 +61,11 @@ function App() {
     setTimeout(() => setModalActive(false), 1000);
   };
 
+  const handleAbout = (e) => {
+    e.preventDefault();
+    setAboutActive(true);
+  };
+
   const p4update = (idx) => {
     setP4idx(idx);
   };
@@ -87,6 +93,7 @@ function App() {
             </a>
             <div className="nav-dropdown-menu">
               <Link to="/whitepaper-technical" className="nav-dropdown-item" onClick={() => { setMenuOpen(false); setWpDropdownOpen(false); }}>{t['nav.wp_technical']}</Link>
+              <Link to="/tokenomics" className="nav-dropdown-item" onClick={() => { setMenuOpen(false); setWpDropdownOpen(false); }}>{t['nav.wp_tokenomics']}</Link>
             </div>
           </div>
           <a href="https://ma-chain.xyz/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.explorer']}</a>
@@ -252,26 +259,26 @@ function App() {
           <div className="accent-line"></div>
         </div>
         <div className="ps-grid">
-          <div className="ps-card">
+          <Link to="/ai-agent" className="ps-card">
             <div className="ps-card-num">01</div>
             <h3>{t['ps.c1title']}</h3>
             <p>{t['ps.c1desc']}</p>
-          </div>
-          <div className="ps-card">
+          </Link>
+          <Link to="/pocc-consensus" className="ps-card">
             <div className="ps-card-num">02</div>
             <h3>{t['ps.c2title']}</h3>
             <p>{t['ps.c2desc']}</p>
-          </div>
-          <div className="ps-card">
+          </Link>
+          <Link to="/virtual-real-integration" className="ps-card">
             <div className="ps-card-num">03</div>
             <h3>{t['ps.c3title']}</h3>
             <p>{t['ps.c3desc']}</p>
-          </div>
-          <div className="ps-card">
+          </Link>
+          <Link to="/decentralized-collaboration" className="ps-card">
             <div className="ps-card-num">04</div>
             <h3>{t['ps.c4title']}</h3>
             <p>{t['ps.c4desc']}</p>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -679,7 +686,7 @@ function App() {
               </div>
               <div className="footer-col">
                 <h4>{t['footer.col4h']}</h4>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col4l1']}</a>
+                <a href="#" onClick={handleAbout}>{t['footer.col4l1']}</a>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col4l2']}</a>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col4l3']}</a>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col4l4']}</a>
@@ -702,6 +709,19 @@ function App() {
             </svg>
           </div>
           <h3 className="coming-soon-title">{t['modal.title']}</h3>
+        </div>
+      </div>
+
+      {/* About Modal */}
+      <div className={`about-modal ${aboutActive ? 'active' : ''}`} onClick={() => setAboutActive(false)}>
+        <div className="about-modal-content" onClick={e => e.stopPropagation()}>
+          <button className="about-modal-close" onClick={() => setAboutActive(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+          </button>
+          <h2 className="about-modal-title">{t['about.title']}</h2>
+          <div className="about-modal-body">
+            {t['about.paragraphs'].map((p, i) => <p key={i}>{p}</p>)}
+          </div>
         </div>
       </div>
     </>

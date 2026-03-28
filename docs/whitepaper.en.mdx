@@ -1,0 +1,291 @@
+## Executive Summary
+
+MA Chain (MetaAssets, hereinafter "MA Chain") proposes a blockchain infrastructure oriented toward unified confirmation, unified measurement, and unified incentive of "Real-World Computing Assets (RWA)" and "On-Chain Assets (MetaAssets)": through POCC (Proof of Computation Capacity), auditable, custodial, and leasable real computing devices are mapped to on-chain Capacity Unit assets; then "computing capacity + staking" forms consensus weight, achieving a high-throughput, low-energy, governable and upgradeable public/consortium hybrid architecture under a BFT finality framework.
+
+This approach absorbs the anti-Sybil and cost-anchoring philosophy of classic PoW in open networks, references the formal security research of PoS in security and economic incentives, and draws from the resource-consumption/energy trade-off logic of PoC/Proof-of-Space, as well as PoET/TEE mechanisms for low-energy randomness and fairness exploration and their known attack surfaces.
+
+At the governance level, MA Chain introduces TSS (Threshold Signature Scheme) as a dual execution control of "on-chain voting + off-chain threshold signing": on-chain Governor/Timelock completes verifiable proposals and voting, while key upgrades and parameter changes require threshold signature co-endorsement, thereby reducing single-point key and single executor risks.
+
+In terms of asset tokenization and compliance, MA Chain expresses devices and revenue rights as EIP-721 compatible NFTs, and completes minting and state changes under a "Foundation supervision + community recognition + challenge period" process; while adhering to AML/CFT and virtual asset regulatory international consensus frameworks (such as FATF related guidance and recommendations), and reserving KYC/AML, data privacy, and custody structure adaptation space for different jurisdictions.
+
+## Introduction & Background
+
+The core contradiction of blockchain consensus mechanisms can be summarized as: in open or semi-open networks, how to use measurable cost or punishable collateral to suppress Sybil attacks, Byzantine behavior and censorship, and achieve an engineerable balance between throughput, finality, energy consumption, and decentralization.
+
+Bitcoin's PoW/Nakamoto consensus anchors security in continuously consumed external resources (computation and electricity), converging in a probabilistic sense via the longest chain rule; however, PoW's energy consumption and externalities have long been controversial. PoS anchors security in slashable internal capital (staking), forming the mainstream route of "replacing energy consumption with economic punishment," with formally secure protocol lineages such as Ouroboros and Casper/Gasper.
+
+BFT-class consensus (PBFT, Tendermint, HotStuff, etc.) provides deterministic finality and accountability under partial synchrony assumptions, becoming the backbone of high-performance and consortium chains, though their membership management and communication complexity makes them naturally more "committee-style security model" oriented.
+
+Beyond PoW and PoS, "resource proof" mechanisms continue to evolve: PoC/Proof-of-Space uses storage resources to replace computation, relatively mild on energy consumption but introducing new issues like capacity initialization, disk wear, and resource concentration. PoET/Proof-of-Luck TEE approaches attempt trusted hardware for random waiting or lottery, reducing energy and improving confirmation certainty, but also introducing unique attack surfaces like supply chain, vulnerabilities, and certificate systems.
+
+"RWA asset tokenisation" drives new narratives on the financial and industrial side: authoritative bodies define tokenisation as the process of "generating and recording digital representations of traditional assets on programmable platforms." This process may enhance composability and settlement efficiency, but also brings systemic risks like legal rights mapping, custody and bankruptcy isolation, market structure and financial stability.
+
+Against this backdrop, MA Chain's research proposition is: can "auditable real computing assets" be transformed into composable, governable on-chain MetaAssets, using their "capacity" to form new consensus weights and economic incentives, establishing stronger engineering closed-loops between energy consumption, scalability, and industrial implementation; and can TSS elevate governance execution authority from single-sig/multi-sig to stronger decentralized threshold mechanisms, coupled with on-chain Governor/Timelock verifiable processes to reduce upgrade and parameter governance operational risks.
+
+## Design Goals & Key Assumptions
+
+MA Chain's goals can be divided into six categories:
+
+1. **Security & Accountability**: Provide provable security boundaries in Byzantine environments (at least BFT's common n≥3f+1 condition), with auditable misbehavior evidence and punishment mechanisms.
+2. **Low Energy & High Throughput**: Avoid PoW's continuous energy consumption externalities, and adopt BFT finality to reduce reorganization costs as much as possible.
+3. **Computing Asset Tokenization Closed-Loop**: From purchase, custody, measurement, leasing, revenue distribution to revocation and disposal, the entire process is auditable and governable.
+4. **Governable Upgrades**: Core "computing contracts" and key parameters support on-chain voting upgrades, with threshold signatures providing execution-layer decentralized control.
+5. **Composable Contracts & Asset Standards**: Reuse EIP-721, EIP-712, proxy upgrade standards and other ecosystem tools for cross-wallet, cross-toolchain compatibility.
+6. **Compliance Configurable**: Implement KYC/AML, data privacy, and RWA custody structure adaptation in a modular manner across different jurisdictions, adhering to FATF risk-based requirements.
+
+### Key Parameters (Currently Unspecified)
+
+<ComparisonTable
+  headers={["Parameter", "Recommended Range", "Selection Rationale"]}
+  rows={[
+    ["Block Time", "1–6s (BFT) or 6–15s (EVM compatible)", "BFT finality throughput vs network latency trade-off"],
+    ["Epoch Length", "256–4096 blocks", "Used for recalculating computing capacity weights and governance snapshots"],
+    ["Validator Count (n)", "50–300 (BFT committee)", "HotStuff linear communication improves scalability but still affected by committee size"],
+    ["Byzantine Tolerance (f)", "f < n/3", "PBFT/HotStuff/Tendermint common security boundary"],
+    ["Min Validator Stake", "1e4–1e7 MA", "Must cover potential misbehavior gains; refers to Ouroboros/Casper penalty frameworks"],
+    ["POCC Weight Function", "Linear, sublinear (sqrt/log), or capped", "Linear centralizes easily; sublinear improves marginal decentralization"],
+    ["TSS Threshold (t-of-n)", "t=2/3n (BFT-aligned) or t=(n+1)/2", "Higher threshold = more secure but lower availability"],
+    ["Challenge Period", "24 hours – 14 days", "Short periods lack evidence time; long periods reduce asset liquidity"],
+    ["Slashing Ratio", "0.5%–100% (tiered by violation type)", "Tiered by evidence strength and severity; calibrated via attack simulations"],
+  ]}
+/>
+
+## System Architecture
+
+MA Chain adopts a layered architecture of "on-chain verifiable state machine + off-chain auditable measurement and threshold signing": the on-chain layer handles transaction execution, asset registration, staking and rewards, governance and upgrades; the off-chain layer handles device attestation material collection, computing capacity measurement, lease settlement detail aggregation and anomaly detection, and triggers TSS threshold signatures for key state submissions to form a single verifiable signature submitted on-chain.
+
+This approach is consistent with the "off-chain collect observations—on-chain submit aggregated reports" oracle paradigm: for example, Chainlink OCR aggregates observations from multiple nodes into a single report and submits it on-chain with threshold signatures for verification, reducing on-chain transaction frequency while maintaining Byzantine fault tolerance.
+
+### Key Contract Components
+
+<Callout>
+**AssetRegistry** — Device & RWA metadata registration
+
+**CapacityUnitNFT** — Capacity Unit NFT
+
+**Staking** — Staking & slashing
+
+**POCCConsensus** — Consensus weight management & epoch settlement
+
+**ComputeReceipt** — Computing records & lease settlement digest on-chain
+
+**Governance** — Governor/Timelock + upgrade control
+
+**TSSKeyRegistry** — Threshold public key & rotation
+
+**Dispute** — Dispute & arbitration interface
+</Callout>
+
+Contract interface design should follow EIP-165 (interface self-description), EIP-712 (structured signing), and mainstream proxy upgrade standards to improve tool compatibility and audit reusability. On-chain stores only "digest + verifiable signature + traceable pointer," while details are kept in off-chain auditable storage, presented on-demand during disputes.
+
+Device-side "remote attestation" is an optional but strongly recommended security enhancement: trusted hardware and remote attestation systems allow off-chain verifiers to gain stronger confidence that "the device is in the expected software/firmware state." The IETF RATS Architecture (RFC 9334) provides an Attester/Verifier/Relying Party role model as terminology and boundary reference for MA Chain's attestation flow.
+
+## POCC Consensus Mechanism & TSS-Driven Governance
+
+POCC (Proof of Computation Capacity) treats "auditable computing capacity" as a long-term resource commitment (capacity commitment), abstracting it into on-chain Capacity Unit (CU) assets. CU participates in both consensus weight (determining proposal/voting rights) and revenue distribution (lease income and block rewards).
+
+Unlike PoW's "continuous consumption cost," POCC is closer to "occupancy/availability resource proof" (comparable to PoC/PoSpace capacity commitment); unlike pure PoS's "capital commitment," POCC additionally introduces "real device and service delivery capability" anchoring, making the chain's economic security partly dependent on the availability and punishability of computing assets. This direction aligns with recent "Proof of Useful Work (PoUW)" research motivation.
+
+### POCC Protocol Primitives & Flow
+
+To engineer POCC into a feasible consensus mechanism, this paper suggests decoupling "consensus finality" from "weight source": consensus finality adopts well-studied BFT frameworks (HotStuff/Tendermint style), while POCC is used only for committee election, proposer allocation, and reward weighting.
+
+1. **Capacity Commitment**: Devices obtain CU through "attestation materials + measurement results." CU validity and state changes are managed by on-chain contracts with off-chain attestation support.
+2. **Weight Function**: Each validator's consensus weight at epoch e is defined as W = f(Stake, CU, Uptime, SlashingHistory). The specific form of f is "unspecified." Options: linear combination, product, or sublinear capacity function (sqrt/log) to suppress centralization.
+3. **Proposer Sampling**: To avoid predictable polling leading to targeted censorship and DoS, VRF (Verifiable Random Function) or equivalent mechanism is recommended for sampling proposers on the weight distribution.
+4. **BFT Finality**: Using HotStuff/Tendermint-style two/three-phase voting, finalized with 2f+1 votes; combined with optional signature aggregation to reduce on-chain/cross-chain communication costs.
+
+### Epoch Lifecycle (Conceptual Pseudocode)
+
+<CodeBlock language="pseudocode" title="Epoch Lifecycle">{`// Epoch e lifecycle
+OnEpochStart(e):
+    seed_e <- Hash(block_{e-1}.finalized_root)
+    committee_e <- SelectValidatorsByWeight(W_{e-1}, seed_e)
+    Publish(committee_e, seed_e)
+
+DuringEpoch(e):
+    for each round r:
+        proposer <- VRF_Sample(committee_e, W_e, seed_e, r)
+        block <- proposer.BuildBlock(mempool)
+        votes <- BFT_Vote(block, committee_e)
+        if votes >= 2f+1:
+            Finalize(block)
+
+OnEpochEnd(e):
+    receipt_root <- OffchainAggregateComputeReceipts(e)
+    sig <- TSS_Sign(receipt_root, committee_e)
+    SubmitOnchain(receipt_root, sig)
+    UpdateWeights(W_{e+1})`}</CodeBlock>
+
+### TSS-Driven On-Chain Governance, Computing Contract Upgrades & Parameter Voting
+
+MA Chain governance adopts a three-stage control plane of "on-chain verifiable decision + threshold signature execution authorization + Timelock delay":
+
+- **On-chain Decision**: Based on Governor contracts for proposals, voting, counting, passing, and queuing. Governor + Timelock combination is a mainstream engineering practice; Timelock provides exit windows for users through forced delays.
+- **Threshold Signature Execution Authorization**: Key operations (especially "computing contract" upgrades, weight function parameter changes, TSS public key rotation) after on-chain approval still require the TSS committee to threshold-sign the "proposal hash/execution hash," and contracts only allow execution after verifying the signature.
+- **Timelock & Challenge Period**: Even after threshold signing completion, on-chain Timelock queuing and challenge period/emergency brake are recommended.
+
+On-chain governance execution messages are recommended to use EIP-712 structured signatures, avoiding "unreadable signature content" operational risks, and using domain separation to reduce cross-contract replay risks.
+
+## Capacity Unit & RWA/NFT Lifecycle
+
+### Capacity Unit Definition
+
+Capacity Unit (CU) must simultaneously satisfy: measurable, auditable, upgradeable, and bindable to revenue rights. Given that computing power is multi-dimensional (CPU/GPU, memory, bandwidth, storage IO, reliability and uptime), CU is defined as an on-chain representation of a "standardized capacity vector," with a "Normalized Capacity Score (NCS)" as consensus weight input.
+
+CU's minimal expression form is an EIP-721 compatible NFT: each CU-NFT corresponds to one device or device group's capacity commitment within a validity period, with tokenURI pointing to auditable metadata (device configuration digest, custody proof, measurement evidence hash, validity period, status and constraints).
+
+For stronger availability and composability needs, CU can extend to "semi-fungible" or "multi-asset" standards (e.g., ERC-3525/1155) to express "capacity shares of the same device" or "time-slotted capacity tickets"; however, this is an optional extension, and EIP-721 compatibility remains the minimum baseline.
+
+### CU Minting Process: Foundation Supervision & Community Recognition
+
+Since the essential risk of RWA is the "enforceability gap between on-chain tokens and off-chain rights/assets," CU minting should not be "self-certified" by a single entity; it requires an institutionalized "supervision + recognition + challenge" process.
+
+1. **Application & Material Submission**: Device owner/mining pool submits purchase vouchers, serial number hashes, custody agreements, insurance/guarantee (optional), and remote attestation public key/certificate chain (optional).
+2. **Custody & Registration**: MA Foundation (or authorized custodian) performs custody registration, forming a "traceable chain of possession and control."
+3. **Measurement & Verification**: Off-chain verifiers perform benchmarks and uptime observations; if using TEE/TPM, verify remote attestation and certificate chains.
+4. **Community Review & Challenge Period**: Publish "pending CU minting proposal" on-chain (including evidence hash and digest), opening a challenge period.
+5. **Supervised Signing & Minting**: After challenge period ends with no valid objections, TSS committee threshold-signs the minting authorization message, on-chain contract verifies signature and calls _mint to create CU-NFT.
+6. **Continuous Supervision & State Maintenance**: Device uptime, firmware status, and custody status changes trigger CU state updates (Active/Suspended/Retired), linked to rewards and weights.
+
+### Device to RWA Lifecycle
+
+The device lifecycle is defined as a state machine to reduce governance and accounting disputes caused by "inconsistent criteria." Recommended states include:
+
+<Callout>*Purchased → Custodied → Listed → Contributing → Suspended → Revoked → Retired*</Callout>
+
+Trigger conditions should be as objective as possible: custody receipt records, uptime thresholds, lease contract status, audit conclusions, or arbitration rulings.
+
+## Node & Mining Pool Model, Economic Incentives
+
+MA Chain divides network participants into three roles: Validators (run consensus and block voting), Miners/Computing Providers (provide real computing services), and Pool Operators (device access, task scheduling, log aggregation, anomaly detection).
+
+### Staking & Deployment
+
+Validators require two types of collateral: native token staking (slashable, constraining misbehavior) and CU binding/delegation (constraining computing commitment and service availability). This combines PoS's slashable capital security with POCC's capacity commitment, forming "dual-resource anchoring."
+
+### Computing Records & On-chain Digests
+
+The challenge of computing records: on-chain cannot verify large-scale computation details at high frequency; off-chain records are easily forged or selectively reported. Therefore, a "three-layer evidence" approach is recommended:
+
+1. **Device-side Signing/Attestation**: Devices sign task execution digests (optional: TEE/TPM attestation binding).
+2. **Pool Aggregation & Anomaly Detection**: Pools aggregate multi-device logs, perform statistical detection and challenge responses.
+3. **TSS Report Endorsement**: Independent TSS committee threshold-signs the "epoch settlement root (receipt_root)." On-chain stores only receipt_root and signature; details are presented during disputes.
+
+### Economic Model & Incentives
+
+- **Block Rewards & Transaction Fees**: Distributed to validators and CU holders, including voting participation, uptime, and no-misbehavior proof factors.
+- **Computing Lease Income**: Tenants pay rent into settlement contracts; pools distribute to miners and CU owners by task completion and SLA, extracting DAO treasury fees.
+- **Slashing**: Three-tier: consensus layer (double-signing/invalid voting), measurement layer (forged proof/refusal to present details), RWA layer (custody default/double-pledging).
+- **Liquidity Design**: CU-NFT liquidity has tension with "real custody/regulatory requirements." Compromises include: whitelist transfers, restricted transfers, or "revocable credential NFTs (SBT-like)."
+
+## Security, Compliance & Operations
+
+### Security Analysis
+
+If MA Chain adopts BFT finality, its security boundary typically falls on "Byzantine nodes f < n/3" conditions. The core risk transforms to: whether committee member selection and weight allocation can be manipulated.
+
+### POCC-Specific Attack Surfaces
+
+- **Fake Computing/Fake Custody**: Using forged attestation materials, double-pledging, or "shadow devices" to obtain CU; mitigated by challenge periods, spot checks, and threshold signing.
+- **Computing Measurement Manipulation**: Benchmarks can be targeted for optimization or cheating; recommend diversified test sets and random challenge seeds.
+- **Pool Centralization**: Pool aggregation improves efficiency but can form power centers; weight functions should cap single operator concentration or use sublinear weights.
+- **TEE/Remote Attestation Risk**: If POCC strongly relies on TEE/SGX, it must inherit their known attack surfaces. TEE attestation is one "enhanced security" path, not the only dependency.
+- **TSS Security & Key Management Risk**: Threshold signatures reduce single-point key leakage but introduce DKG, rotation, availability, and malicious participant model complexity.
+
+### Compliance & Legal Risks
+
+1. **RWA Rights Mapping & Custody**: Tokenisation is only digital representation; asset rights enforceability still depends on contracts, custody arrangements, bankruptcy isolation, and judicial execution.
+2. **Virtual Asset AML/CFT**: If MA Chain's tokens constitute virtual assets or VASP scope, they must comply with FATF Recommendation 15 and its interpretive notes.
+3. **Market Integrity & Investor Protection**: IOSCO policy recommendations emphasize market manipulation, conflicts of interest, custody, and disclosure regulatory concerns.
+
+## Implementation Details
+
+### Solidity Interface Skeleton (Example)
+
+<CodeBlock language="solidity" title="ICapacityUnit.sol & ITSSKeyRegistry.sol">{`interface ICapacityUnit is IERC721 {
+    enum Status { Pending, Active, Suspended, Revoked, Retired }
+
+    struct CapacityMeta {
+        bytes32 deviceIdHash;
+        uint64  validFrom;
+        uint64  validTo;
+        uint256 ncs;           // normalized capacity score
+        Status  status;
+        bytes32 evidenceRoot;  // offchain evidence Merkle root
+    }
+
+    event CapacityMinted(uint256 indexed tokenId, bytes32 indexed deviceIdHash, uint256 ncs);
+    event CapacityStatusChanged(uint256 indexed tokenId, Status from, Status to, bytes32 reasonHash);
+    event CapacityDelegated(uint256 indexed tokenId, address indexed validator, uint256 weight);
+
+    function getCapacityMeta(uint256 tokenId) external view returns (CapacityMeta memory);
+    function setStatus(uint256 tokenId, Status to, bytes32 reasonHash, bytes calldata tssSig) external;
+    function delegateToValidator(uint256 tokenId, address validator, uint256 weight) external;
+}
+
+interface ITSSKeyRegistry {
+    event TSSKeyRotated(uint256 indexed epoch, bytes32 indexed keyId, bytes pubkeyBytes);
+    function currentKeyId() external view returns (bytes32);
+    function currentPubkey() external view returns (bytes memory);
+    function isValidSignature(bytes32 msgHash, bytes calldata sig) external view returns (bool);
+}`}</CodeBlock>
+
+### Event Design Principles
+
+All operations involving RWA state changes, revenue settlement root submissions, governance execution, and key rotation must be event-logged for indexing, auditing, and regulatory evidence.
+
+### Deployment & Migration Strategy
+
+Three-stage hardening deployment strategy:
+
+1. **Testnet Phase**: Observability as the first priority, open parameters and frequent upgrades; focus on validating POCC weight function impact.
+2. **Pre-production Phase**: Freeze key interfaces and events; upgrades strictly follow Governor/Timelock + TSS dual-control; introduce external audits.
+3. **Mainnet Phase**: Limit upgrade frequency and windows, enable longer Timelock; institutionalize key rotation.
+
+## Consensus Mechanism Comparison
+
+<ComparisonTable
+  headers={["Mechanism", "Security Anchoring", "Decentralization", "Energy", "Finality/Scalability", "Incentives"]}
+  rows={[
+    ["PoW", "External energy & computation cost; longest-chain probabilistic security", "ASIC/pool centralization pressure", "High energy consumption", "Probabilistic finality; limited throughput", "Block rewards & fees"],
+    ["PoS", "Slashable capital; mature formal protocol lineage", "Capital & delegation centralization", "Low energy", "BFT finality possible", "Staking rewards + slashing"],
+    ["PoA", "Identity/reputation backed; permissioned chains", "Inherently centralized", "Low energy", "High throughput, deterministic finality", "Organization-driven"],
+    ["PoC/PoSpace", "Storage capacity commitment", "Storage economies & centralization", "Relatively low but hardware wear", "Longest-chain probabilistic", "Storage input for block probability"],
+    ["PoET/TEE", "Trusted hardware random wait/lottery", "Hardware supply chain dependent", "Low energy", "Faster confirmation; TEE-dependent", "Low node operation cost"],
+    ["PoUW", "Consensus cost combined with useful computation", "Centralization toward large compute players", "Depends on task nature", "Verification difficult", "Task payment + block incentives"],
+    ["POCC (MA Chain)", "Custodial/auditable CU + slashable staking; BFT finality", "Pool & custody centralization needs institutional restraint", "Lower than PoW", "BFT finality + off-chain aggregated submission", "Staking + lease revenue + slashing; DAO treasury"],
+  ]}
+/>
+
+## Future Work & Extensions
+
+1. **Cross-Chain & Verifiable Settlement**: Extend CU and lease settlement to multi-chain ecosystems.
+2. **Infrastructure Cloud Scheduling**: Upgrade mining pools from "computing aggregation" to "resource scheduling markets."
+3. **Market Mechanisms & Governance Anti-Capture**: Introduce stronger anti-bribery and power-separation mechanisms.
+
+All extensions should be constrained by "upgradeable, auditable, compliant": tokenisation and virtual asset regulation continues to evolve globally.
+
+## References
+
+<RefList items={[
+  "[1] A Peer-to-Peer Electronic Cash System — bitcoin.org/bitcoin.pdf",
+  "[2] A Provably Secure Proof-of-Stake Blockchain Protocol — eprint.iacr.org/2016/889",
+  "[3] SpaceMint: A Cryptocurrency Based on Proofs of Space",
+  "[4] On Elapsed Time Consensus Protocols — eprint.iacr.org/2021/086",
+  "[5] OpenZeppelin Governance — docs.openzeppelin.com",
+  "[6] FATF Updated Guidance for a Risk-Based Approach — fatf-gafi.org",
+  "[7] Cambridge Blockchain Network Sustainability Index: CBECI",
+  "[8] Practical Byzantine Fault Tolerance — csail.mit.edu",
+  "[9] BIS — Tokenisation in the context of money and other assets",
+  "[10] FSB — The Financial Stability Implications of Tokenisation",
+  "[11] RFC 9591 — FROST Threshold Signatures — datatracker.ietf.org",
+  "[12] ERC-721: Non-Fungible Token Standard — eips.ethereum.org",
+  "[13] HotStuff: BFT Consensus in the Lens of Blockchain — arxiv.org",
+  "[14] Tendermint: Consensus without Mining",
+  "[15] Verifiable Random Functions — csail.mit.edu",
+  "[16] EIP-712: Typed structured data hashing and signing",
+  "[17] ERC-1967: Proxy Storage Slots — eips.ethereum.org",
+  "[18] ERC-3525: Semi-Fungible Token — eips.ethereum.org",
+  "[19] IOSCO Policy Recommendations for Crypto and Digital Asset Markets",
+]} />
