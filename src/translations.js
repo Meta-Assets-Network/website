@@ -26,7 +26,7 @@ export const translations = {
         'p3.badge': 'NEXT GENERATION HARDWARE',
         'p3.title': 'ClawMask AI Agent',
         'p3.lead': 'A WEB4.0 autonomous trading Agent with protocol-level security, making AI-driven DeFi accessible to everyone. Clawmask is MAC\'s proprietary WEB4.0 native trading AI Agent, securely encapsulated at the protocol layer. Integrating AI strategy analysis, automated execution, and on-chain security verification — deploy a personalized trading Agent with one click, no coding required.',
-        'p3.btn': 'Download Now',
+        'p3.btn': 'Get Started',
         'p3.free': 'Free equivalent MA',
         'p3.f1label': 'Protocol-Level Security:', 'p3.f1val': 'Built-in smart contract audit & risk control, zero security vulnerabilities.',
         'p3.f2label': 'One-Click Deploy:', 'p3.f2val': 'Visual strategy configuration, AI auto-optimization, zero technical barrier.',

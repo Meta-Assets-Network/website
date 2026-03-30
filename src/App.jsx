@@ -101,7 +101,7 @@ function App() {
             </div>
           </div>
           <a href="https://ma-chain.xyz/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.explorer']}</a>
-          <a href="#" className="top-nav-link top-nav-link-accent" onClick={handleComingSoon}>{t['nav.clawmask']}</a>
+          <a href="https://metaassetschain.org/clawmask/" className="top-nav-link top-nav-link-accent" target="_blank" rel="noopener noreferrer">{t['nav.clawmask']}</a>
           <a href="#" className="top-nav-link" onClick={handleComingSoon}>{t['nav.miningpool']}</a>
           <button className="lang-switch lang-switch-mobile" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
         </div>
@@ -129,7 +129,7 @@ function App() {
           </h1>
           <div className="subtitle-pill-cluster">
             <a href="https://ma-chain.xyz/" className="pill" target="_blank" rel="noopener noreferrer">{t['hero.pill1']}</a>
-            <a href="#" className="pill accent" onClick={handleComingSoon}>{t['hero.pill2']}</a>
+            <a href="https://metaassetschain.org/clawmask/" className="pill accent" target="_blank" rel="noopener noreferrer">{t['hero.pill2']}</a>
             <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill3']}</a>
             <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill4']}</a>
           </div>
@@ -383,7 +383,7 @@ function App() {
             <div className="p3-title">{t['p3.title']}</div>
             <p className="p3-lead">{t['p3.lead']}</p>
             <div className="p3-cta-group">
-              <a href="#" className="p3-btn" onClick={handleComingSoon}>{t['p3.btn']}</a>
+              <a href="https://metaassetschain.org/clawmask/" className="p3-btn" target="_blank" rel="noopener noreferrer">{t['p3.btn']}</a>
               <div className="p3-price"><span style={{ textDecoration: 'line-through', opacity: 0.5, marginRight: 8 }}>$600</span>{t['p3.free']}</div>
             </div>
             <div className="p3-terminal">
