@@ -102,7 +102,7 @@ function App() {
           </div>
           <a href="https://ma-chain.xyz/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.explorer']}</a>
           <a href="https://metaassetschain.org/clawmask/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.clawmask']}</a>
-          <a href="#" className="top-nav-link top-nav-link-accent" onClick={handleComingSoon}>{t['nav.miningpool']}</a>
+          <a href="https://metaassetschain.org/pool/" className="top-nav-link top-nav-link-accent" target="_blank" rel="noopener noreferrer">{t['nav.miningpool']}</a>
           <button className="lang-switch lang-switch-mobile" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
         </div>
         <button className="lang-switch" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
