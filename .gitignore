@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build artifacts
+dist.zip
+*.tar.gz
+
+# Docs & design files
+*.docx
+DEPLOY.md
+variant-design-guide.md

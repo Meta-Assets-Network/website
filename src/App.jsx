@@ -101,8 +101,8 @@ function App() {
             </div>
           </div>
           <a href="https://ma-chain.xyz/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.explorer']}</a>
-          <a href="https://metaassetschain.org/clawmask/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.clawmask']}</a>
-          <a href="https://metaassetschain.org/pool/" className="top-nav-link top-nav-link-accent" target="_blank" rel="noopener noreferrer">{t['nav.miningpool']}</a>
+          <a href="https://clawservice.metaassetschain.org/" className="top-nav-link" target="_blank" rel="noopener noreferrer">{t['nav.clawmask']}</a>
+          <a href="https://macpool.net/" className="top-nav-link top-nav-link-accent" target="_blank" rel="noopener noreferrer">{t['nav.miningpool']}</a>
           <button className="lang-switch lang-switch-mobile" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
         </div>
         <button className="lang-switch" onClick={toggleLang}>{lang === 'en' ? '中文' : 'EN'}</button>
@@ -129,7 +129,7 @@ function App() {
           </h1>
           <div className="subtitle-pill-cluster">
             <a href="https://ma-chain.xyz/" className="pill" target="_blank" rel="noopener noreferrer">{t['hero.pill1']}</a>
-            <a href="https://metaassetschain.org/clawmask/" className="pill" target="_blank" rel="noopener noreferrer">{t['hero.pill2']}</a>
+            <a href="https://clawservice.metaassetschain.org/" className="pill" target="_blank" rel="noopener noreferrer">{t['hero.pill2']}</a>
             <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill3']}</a>
             <a href="#" className="pill accent" onClick={handleComingSoon}>{t['hero.pill4']}</a>
           </div>
@@ -383,7 +383,7 @@ function App() {
             <div className="p3-title">{t['p3.title']}</div>
             <p className="p3-lead">{t['p3.lead']}</p>
             <div className="p3-cta-group">
-              <a href="https://metaassetschain.org/clawmask/" className="p3-btn" target="_blank" rel="noopener noreferrer">{t['p3.btn']}</a>
+              <a href="https://clawservice.metaassetschain.org/" className="p3-btn" target="_blank" rel="noopener noreferrer">{t['p3.btn']}</a>
               <div className="p3-price"><span style={{ textDecoration: 'line-through', opacity: 0.5, marginRight: 8 }}>$600</span>{t['p3.free']}</div>
             </div>
             <div className="p3-terminal">
@@ -598,7 +598,7 @@ function App() {
             <h3>{t['p5.c1title']}</h3>
             <p>{t['p5.c1desc']}</p>
             <div className="p5-links">
-              <a href="#" className="p5-link" onClick={handleComingSoon}>{t['p5.c1l1']} <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
+              <a href="https://macpool.net/" className="p5-link" target="_blank" rel="noopener noreferrer">{t['p5.c1l1']} <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
               <a href="#" className="p5-link" onClick={handleComingSoon}>{t['p5.c1l2']} <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
             </div>
           </div>
@@ -659,11 +659,12 @@ function App() {
               </div>
               <p className="footer-desc">{t['footer.desc']}</p>
               <div className="footer-socials">
-                <a href="#" className="footer-social" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                <a href="https://t.me/+5VVpwn9tQIk4ZWQ1" className="footer-social" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i className="fab fa-telegram-plane"></i></a>
-                <a href="https://discord.gg/Mu2fY663" className="footer-social" aria-label="Discord" target="_blank" rel="noopener noreferrer"><i className="fab fa-discord"></i></a>
-                <a href="#" className="footer-social" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-                <a href="#" className="footer-social" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/MetaAsset_MA" className="footer-social" aria-label="X" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <a href="https://t.me/metaassets_ma" className="footer-social" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i className="fab fa-telegram-plane"></i></a>
+                <a href="https://discord.gg/xmfWWAUphm" className="footer-social" aria-label="Discord" target="_blank" rel="noopener noreferrer"><i className="fab fa-discord"></i></a>
+                <a href="https://medium.com/@MetaAssets" className="footer-social" aria-label="Medium" target="_blank" rel="noopener noreferrer"><i className="fab fa-medium"></i></a>
+                <a href="https://www.instagram.com/metaassets_ma/" className="footer-social" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@MetaAsset_MA" className="footer-social" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
               </div>
             </div>
             <div className="footer-links">
@@ -678,7 +679,7 @@ function App() {
               <div className="footer-col">
                 <h4>{t['footer.col2h']}</h4>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col2l1']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col2l2']}</a>
+                <a href="https://macpool.net/" target="_blank" rel="noopener noreferrer">{t['footer.col2l2']}</a>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col2l3']}</a>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col2l4']}</a>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col2l5']}</a>

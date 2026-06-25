@@ -1,0 +1,185 @@
+/* ===== Footer 独立样式 ===== */
+/* 使用时请确保：1) 引入了 Font Awesome 图标库（如果用 telegram/discord/instagram/facebook 图标）
+               2) 引入了 Syne 字体（或覆盖 --footer-font-display） */
+
+.footer-root {
+  /* 可覆盖的 CSS 变量 */
+  --footer-bg: #050810;
+  --footer-text: #FFFFFF;
+  --footer-muted: rgba(255, 255, 255, 0.6);
+  --footer-muted-light: rgba(255, 255, 255, 0.7);
+  --footer-accent: #00E5C4;
+  --footer-border: rgba(255, 255, 255, 0.06);
+  --footer-social-bg: rgba(255, 255, 255, 0.05);
+  --footer-social-border: rgba(255, 255, 255, 0.1);
+  --footer-font-display: 'Syne', sans-serif;
+  --footer-font-body: 'EB Garamond', serif;
+  --footer-font-mono: 'Space Mono', monospace;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background: var(--footer-bg);
+  border-top: 1px solid var(--footer-border);
+  padding: 56px 0 28px;
+  color: var(--footer-text);
+  font-family: var(--footer-font-body);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+/* 顶部区域 */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+
+/* 品牌区 */
+.footer-brand {
+  max-width: 260px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.footer-logo img {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.footer-logo span {
+  font-family: var(--footer-font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--footer-text);
+}
+
+.footer-desc {
+  font-size: 0.9rem;
+  color: var(--footer-muted-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* 社交图标 */
+.footer-socials {
+  display: flex;
+  gap: 14px;
+}
+
+.footer-social {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--footer-social-bg);
+  border: 1px solid var(--footer-social-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: var(--footer-muted);
+}
+
+.footer-social:hover {
+  background: rgba(0, 229, 196, 0.2);
+  border-color: rgba(0, 229, 196, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 229, 196, 0.15);
+  color: var(--footer-accent);
+}
+
+.footer-social i {
+  font-size: 1.2rem;
+}
+
+/* 链接列 */
+.footer-links {
+  display: flex;
+  gap: 48px;
+}
+
+.footer-col h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--footer-accent);
+  margin-bottom: 14px;
+  font-family: var(--footer-font-display);
+}
+
+.footer-col a {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--footer-muted);
+  padding: 3px 0;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: var(--footer-font-body);
+}
+
+.footer-col a:hover {
+  color: var(--footer-accent);
+}
+
+/* 底部版权 */
+.footer-bottom {
+  border-top: 1px solid var(--footer-border);
+  padding-top: 20px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--footer-font-mono);
+  margin: 0;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .footer-inner {
+    padding: 0 1.5rem;
+  }
+
+  .site-footer {
+    padding: 36px 0 20px;
+  }
+
+  .footer-brand {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+}
