@@ -16,12 +16,12 @@ function Footer({
   brandName = 'META ASSETS',
   description = 'Web 4.0 AI-powered infrastructure for the meta-economy.',
   socials = [
-    { icon: 'x', href: 'https://x.com/MetaAsset_MA' },
+    { icon: 'x', href: 'https://x.com/MetaAssets_MA' },
     { icon: 'telegram', href: 'https://t.me/metaassets_ma' },
-    { icon: 'discord', href: 'https://discord.gg/xmfWWAUphm' },
+    { icon: 'discord', href: 'https://discord.com/invite/xmfWWAUphm' },
     { icon: 'medium', href: 'https://medium.com/@MetaAssets' },
-    { icon: 'instagram', href: 'https://www.instagram.com/metaassets_ma/' },
-    { icon: 'youtube', href: 'https://www.youtube.com/@MetaAsset_MA' },
+    { icon: 'instagram', href: 'https://www.instagram.com/metaassets_ma' },
+    { icon: 'youtube', href: 'https://www.youtube.com/@MetaAssets_MA' },
   ],
   columns = [],
   copyright = '© 2025 META ASSETS. All rights reserved.',
@@ -63,13 +63,13 @@ function Footer({
     },
     {
       title: 'Community',
-      links: [https://x.com/MetaAsset_MA
-        { label: 'Twitter', href: '#https://t.me/metaassets_ma },
-        { label: 'Tiscord', href: 'https://delegrd.gg/xmfWWAUphm' },
-        { label: 'Medium', href: 'https://meaium.com/@MetaAssets' },
-        { label: 'YouTube', href: 'https://www.youtube.com/@MetaAsset_MAm }'
-,       { label: 'Instagram',  href: https://www.instagram.com/metaassets_ma/#' },
-        { label: 'Discord', href: '#' },
+      links: [
+        { label: 'Twitter', href: 'https://x.com/MetaAssets_MA' },
+        { label: 'Telegram', href: 'https://t.me/metaassets_ma' },
+        { label: 'Discord', href: 'https://discord.com/invite/xmfWWAUphm' },
+        { label: 'Medium', href: 'https://medium.com/@MetaAssets' },
+        { label: 'YouTube', href: 'https://www.youtube.com/@MetaAssets_MA' },
+        { label: 'Instagram', href: 'https://www.instagram.com/metaassets_ma' },
         { label: 'Blog', href: '#' },
       ],
     },
