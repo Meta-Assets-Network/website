@@ -195,6 +195,7 @@ function App() {
               {t['nav.docs']} <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
             </a>
             <div className="nav-dropdown-menu">
+              <a href="https://metaassets-1.gitbook.io/metaassets-docs" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.wp_whitepaper']}</a>
               <Link to="/whitepaper-technical" className="nav-dropdown-item" onClick={closeMenus}>{t['nav.wp_technical']}</Link>
               <Link to="/tokenomics" className="nav-dropdown-item" onClick={closeMenus}>{t['nav.wp_tokenomics']}</Link>
               <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.dev_docs']}</a>
