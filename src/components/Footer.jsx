@@ -24,7 +24,7 @@ function Footer({
     { icon: 'youtube', href: 'https://www.youtube.com/@MetaAssets_MA' },
   ],
   columns = [],
-  copyright = '© 2025 META ASSETS. All rights reserved.',
+  copyright = '© 2026 MA CHAIN GROUP LIMITED. All rights reserved.',
 }) {
   const socialIcons = {
     x: (

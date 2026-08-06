@@ -94,7 +94,7 @@ export const translations = {
         'footer.col2h': 'Ecosystem', 'footer.col2l1': 'DAPP', 'footer.col2l2': 'Mining Pool', 'footer.col2l3': 'Agent Market', 'footer.col2l4': 'RWA Platform', 'footer.col2l5': 'Cross-Chain Bridge',
         'footer.col3h': 'Community', 'footer.col3l4': 'Forum',
         'footer.col4h': 'Company', 'footer.col4l1': 'About Us', 'footer.col4l2': 'Careers', 'footer.col4l3': 'Blog', 'footer.col4l4': 'Compliance', 'footer.col4l5': 'Contact Us',
-        'footer.copy': '© 2026 META ASSETS. All rights reserved.',
+        'footer.copy': '© 2026 MA CHAIN GROUP LIMITED. All rights reserved.',
         'modal.title': 'Coming Soon', 'modal.desc': 'Feature under development, stay tuned',
 
         // Whitepaper page
@@ -103,7 +103,7 @@ export const translations = {
         'wp.download': 'Download PDF',
         'wp.toc': 'TABLE OF CONTENTS',
         'wp.badge': 'Technical Whitepaper',
-        'wp.footer': '© 2026 META ASSETS. All rights reserved.',
+        'wp.footer': '© 2026 MA CHAIN GROUP LIMITED. All rights reserved.',
 
         // About Us
         'about.title': 'About Us',
@@ -209,7 +209,7 @@ export const translations = {
         'footer.col2h': '生态应用', 'footer.col2l1': 'DAPP', 'footer.col2l2': '矿池', 'footer.col2l3': 'Agent 市场', 'footer.col2l4': 'RWA 平台', 'footer.col2l5': '跨链桥',
         'footer.col3h': '社区', 'footer.col3l4': '论坛',
         'footer.col4h': '公司信息', 'footer.col4l1': '关于我们', 'footer.col4l2': '招聘', 'footer.col4l3': '博客', 'footer.col4l4': '合规', 'footer.col4l5': '联系我们',
-        'footer.copy': '© 2026 META ASSETS. 保留所有权利。',
+        'footer.copy': '© 2026 MA CHAIN GROUP LIMITED. 保留所有权利。',
         'modal.title': '敬请期待', 'modal.desc': '功能正在开发中，敬请期待',
 
         // Whitepaper page
@@ -218,7 +218,7 @@ export const translations = {
         'wp.download': '下载 PDF',
         'wp.toc': '目录',
         'wp.badge': '技术白皮书',
-        'wp.footer': '© 2026 META ASSETS. 保留所有权利。',
+        'wp.footer': '© 2026 MA CHAIN GROUP LIMITED. 保留所有权利。',
 
         // About Us
         'about.title': '关于我们',
