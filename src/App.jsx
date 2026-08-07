@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import { translations } from './translations';
-import { WalletModal } from './WalletModal';
-import { useAccount } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
@@ -11,14 +10,12 @@ function App() {
   const [modalActive, setModalActive] = useState(false);
   const [aboutActive, setAboutActive] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [p4idx, setP4idx] = useState(0);
   const [ppSlide, setPpSlide] = useState(0);
   const [ppAutoPaused, setPpAutoPaused] = useState(false);
   const ppResumeTimer = useRef(null);
   const [typewriterText, setTypewriterText] = useState('');
   const typewriterRef = useRef(null);
-  const { address, isConnected } = useAccount();
 
   const t = translations[lang];
 
@@ -162,8 +159,7 @@ function App() {
               {t['nav.network']} <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
             </a>
             <div className="nav-dropdown-menu">
-              <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.mainnet']}</a>
-              <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.testnet']}</a>
+              <a href="https://faucet.machaintest.com/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.faucet']}</a>
               <a href="https://ma-chain.xyz/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.block_explorer']}</a>
             </div>
           </div>
@@ -179,7 +175,9 @@ function App() {
               <a href="https://clawservice.metaassetschain.org/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.clawmask_portal']}</a>
             </div>
           </div>
-          {/* 质押 / Meta Pool */}
+          {/* DeCloud */}
+          <a href="https://macdecloud.com/" className="top-nav-link top-nav-link-accent" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.decloud']}</a>
+          {/* 质押 / Meta Pool（暂时隐藏）
           <div className={`nav-dropdown ${openDropdown === 'metapool' ? 'open' : ''}`}>
             <a href="https://macpool.net/" className="top-nav-link nav-dropdown-trigger top-nav-link-accent" target="_blank" rel="noopener noreferrer" onClick={(e) => { if (window.innerWidth <= 1024) { e.preventDefault(); toggleDropdown('metapool'); } }}>
               {t['nav.metapool']} <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
@@ -189,6 +187,7 @@ function App() {
               <a href="https://macpool.net/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.compute_provider']}</a>
             </div>
           </div>
+          */}
           {/* 文档 / Docs */}
           <div className={`nav-dropdown ${openDropdown === 'docs' ? 'open' : ''}`}>
             <a href="#" className="top-nav-link nav-dropdown-trigger" onClick={(e) => { if (window.innerWidth <= 1024) { e.preventDefault(); toggleDropdown('docs'); } }}>
@@ -219,7 +218,9 @@ function App() {
             </a>
             <div className="nav-dropdown-menu">
               <a href="#page-events" className="nav-dropdown-item" onClick={closeMenus}>{t['nav.events']}</a>
+              {/* 大使计划（暂时隐藏）
               <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.ambassador']}</a>
+              */}
             </div>
           </div>
           <div className="lang-segmented lang-switch-mobile">
@@ -231,9 +232,31 @@ function App() {
           <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => { if (lang !== 'en') toggleLang(); }}>EN</button>
           <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => { if (lang !== 'zh') toggleLang(); }}>中文</button>
         </div>
-        <button className="wallet-btn top-nav-wallet" onClick={() => setWalletModalOpen(true)}>
-          {isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : t['nav.wallet']}
-        </button>
+        <div className="top-nav-wallet">
+          <ConnectButton.Custom>
+            {({ account, chain, openConnectModal, openChainModal, openAccountModal, mounted }) => {
+              if (!mounted || !account || !chain) {
+                return (
+                  <button className="wallet-btn" onClick={openConnectModal} aria-disabled={!mounted} type="button">
+                    {t['nav.wallet']}
+                  </button>
+                );
+              }
+              const wrongChain = chain.unsupported;
+              return (
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <button className="wallet-btn" onClick={openChainModal} type="button"
+                    style={wrongChain ? { borderColor: '#ff6464', color: '#ff6464' } : undefined}>
+                    {wrongChain ? 'Wrong network' : chain.name}
+                  </button>
+                  <button className="wallet-btn" onClick={openAccountModal} type="button">
+                    {account.displayName}
+                  </button>
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
+        </div>
         <button className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
           <span></span><span></span><span></span>
         </button>
@@ -268,7 +291,7 @@ function App() {
           </div>
           <div className="subtitle-pill-cluster">
             <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill1']}</a>
-            <a href="https://macpool.net/" className="pill accent" target="_blank" rel="noopener noreferrer">{t['hero.pill2']}</a>
+            <a href="https://macdecloud.com/" className="pill accent" target="_blank" rel="noopener noreferrer">{t['hero.pill2']}</a>
           </div>
         </div>
         <div className="grunge-map">
@@ -801,9 +824,6 @@ function App() {
           </div>
         </div>
       </div>
-
-      {/* Wallet Modal */}
-      {walletModalOpen && <WalletModal onClose={() => setWalletModalOpen(false)} />}
     </>
   );
 }
