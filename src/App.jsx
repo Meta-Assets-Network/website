@@ -19,6 +19,13 @@ function App() {
 
   const t = translations[lang];
 
+  // 把语言反映到 <body>，让 CSS 里 per-language 的字体规则（body.lang-zh …）真正生效。
+  // 修复一个历史 bug：此前该 class 从未被设置，导致设计师指定的中文字体（MaShanZheng / Noto Serif SC / Noto Sans SC）从未启用。
+  useEffect(() => {
+    document.body.classList.toggle('lang-zh', lang === 'zh');
+    document.body.classList.toggle('lang-en', lang === 'en');
+  }, [lang]);
+
 
   // Typewriter effect
   useEffect(() => {
@@ -84,6 +91,19 @@ function App() {
   };
 
   const phoneImgs = ['/images/super-wallet.png', '/images/macswap.png', '/images/rwa.png', '/images/clawmask.png'];
+
+  // 生态节点 Roadmap：5 个节点（桌面横向等分，上下交替；移动端纵向）
+  const roadmap = ['rm.n1title', 'rm.n2title', 'rm.n3title', 'rm.n4title', 'rm.n5title'];
+
+  // DeCloud 收敛拓扑：多个 AI/算力端点 → 中心网关 → 单一 API（SVG viewBox 400×400，中心 200,200）
+  const dcEndpoints = [
+    { x: 70, y: 75, label: 'LLM' },
+    { x: 52, y: 165, label: 'Voice' },
+    { x: 40, y: 255, label: 'GPU' },
+    { x: 75, y: 340, label: 'NPU' },
+    { x: 205, y: 365, label: 'Vision' },
+    { x: 330, y: 335, label: 'Edge' },
+  ];
 
   const partners = [
     { name: 'USDC', icon: '/images/usdc.png', href: 'https://www.usdc.com/', descKey: 'pp.p1desc' },
@@ -343,6 +363,71 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* DeCloud Banner：纯 CSS 轨道视觉 + 产品化左栏 */}
+      <section className="page-decloud" id="page-decloud">
+        <div className="dc-inner">
+          <div className="dc-copy">
+            <div className="dc-eyebrow">{t['dc.eyebrow']}</div>
+            <h2 className="dc-title">
+              {t['dc.title'].split('\n').map((line, i) => (
+                <span key={i} className={i === 0 ? 'dc-title-accent' : 'dc-title-base'}>{line}<br /></span>
+              ))}
+            </h2>
+            <div className="dc-features">
+              {[1, 2, 3, 4].map(n => (
+                <div className="dc-chip" key={n}><span className="dc-chip-dot" />{t[`dc.f${n}`]}</div>
+              ))}
+            </div>
+            <a href="https://macdecloud.com/" className="dc-cta" target="_blank" rel="noopener noreferrer">
+              {t['dc.cta']} <span className="dc-cta-arrow">→</span>
+            </a>
+          </div>
+          <div className="dc-mesh" aria-hidden="true">
+            <svg className="dc-links" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="dc-link-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="rgba(0,229,196,0.55)" />
+                  <stop offset="100%" stopColor="rgba(0,229,196,0.05)" />
+                </linearGradient>
+              </defs>
+              {dcEndpoints.map((e, i) => (
+                <line key={i} x1={e.x} y1={e.y} x2="200" y2="200" stroke="url(#dc-link-grad)" strokeWidth="1" className="dc-flow" />
+              ))}
+              <line x1="200" y1="200" x2="372" y2="200" stroke="rgba(0,229,196,0.85)" strokeWidth="1.5" className="dc-flow" />
+            </svg>
+            {dcEndpoints.map((e, i) => (
+              <div className={`dc-endpoint ${e.x > 200 ? 'right' : ''}`} key={i} style={{ left: `${e.x / 4}%`, top: `${e.y / 4}%` }}>
+                <span className="dc-e-dot" /><span className="dc-e-label">{e.label}</span>
+              </div>
+            ))}
+            <div className="dc-gateway"><span className="dc-glyph">{'</>'}</span></div>
+            <div className="dc-output">API</div>
+          </div>
+        </div>
+      </section>
+
+      {/* 生态节点 Roadmap：横向发光轨道 + 交替节点卡片（移动端转纵向） */}
+      <section className="page-roadmap" id="page-roadmap">
+        <div className="rm-header">
+          <h2>{t['rm.title']}</h2>
+          <p>{t['rm.subtitle']}</p>
+          <div className="accent-line"></div>
+        </div>
+        <div className="rm-track">
+          <div className="rm-line" aria-hidden="true" />
+          {roadmap.map((titleKey, i) => (
+            <div className={`rm-col ${i % 2 === 0 ? 'rm-up' : 'rm-down'}`} key={i}>
+              <div className="rm-dot">{String(i + 1).padStart(2, '0')}</div>
+              <div className="rm-stem" />
+              <div className="rm-card">
+                <div className="rm-nlabel">{t[titleKey]}</div>
+                <div className="rm-ndate">{t['rm.year']}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Page 2: Comparison */}
       <section className="page-two" id="page-two">
