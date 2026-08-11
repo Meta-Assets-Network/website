@@ -339,7 +339,7 @@ body.lang-zh .pp-btn-cta { font-family: var(--zh-sans); }
 .dc-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
 .dc-copy { flex: 0 1 50%; display: flex; flex-direction: column; align-items: flex-start; gap: 1.7rem; }
 .dc-eyebrow { font-family: var(--en-mono); font-size: 0.78rem; letter-spacing: 0.32em; color: var(--terra-green); text-transform: uppercase; padding: 0.35rem 0.8rem; border: 1px solid rgba(0,229,196,0.35); border-radius: 999px; background: rgba(0,229,196,0.06); }
-.dc-title { font-size: clamp(2.1rem, 4.8vw, 4rem); font-weight: 400; line-height: 1.1; letter-spacing: 0.01em; font-family: var(--en-serif); }
+.dc-title { font-size: clamp(2.1rem, 4.8vw, 4rem); font-weight: 400; line-height: 1.1; letter-spacing: 0.01em; font-family: var(--en-serif); font-style: italic; }
 .dc-title-accent { color: var(--terra-green); text-shadow: 0 0 28px rgba(0,229,196,0.4); font-style: italic; }
 .dc-title-base { color: var(--ink); }
 body.lang-zh .dc-title { font-family: var(--zh-display), var(--en-serif); }
@@ -373,7 +373,7 @@ body.lang-zh .dc-chip { font-family: var(--zh-serif); }
 /* ===== Ecosystem Roadmap ===== */
 .page-roadmap { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 4rem; background: #0a1628; border-top: 1px solid rgba(0,229,196,0.10); }
 .rm-header { text-align: center; margin-bottom: 4rem; }
-.rm-header h2 { font-size: clamp(1.9rem, 3.8vw, 3.1rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; font-family: var(--en-serif); }
+.rm-header h2 { font-size: clamp(1.9rem, 3.8vw, 3.1rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; font-family: var(--en-serif); font-style: italic; }
 body.lang-zh .rm-header h2 { font-family: var(--zh-display), var(--en-serif); }
 .rm-header p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 620px; margin: 0 auto 1.2rem; line-height: 1.7; font-family: var(--en-serif); }
 body.lang-zh .rm-header p { font-family: var(--zh-serif); }
@@ -464,7 +464,7 @@ body.lang-zh .compare-table tbody td:first-child { font-family: var(--zh-sans); 
 .p3-product-col { display: flex; justify-content: flex-start; align-items: center; perspective: 2500px; height: 100%; position: relative; }
 .p3-content-col { z-index: 10; display: flex; flex-direction: column; justify-content: center; padding-left: 1rem; }
 .p3-badge { font-family: 'VT323', monospace; color: var(--terra-green); font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.8rem; }
-.p3-title { font-size: clamp(2.5rem,4.1vw,4.1rem); line-height: 1.1; font-weight: 400; color: #EAE6D8; margin-bottom: 1.2rem; letter-spacing: 0.04em; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); font-family: var(--en-serif); }
+.p3-title { font-size: clamp(2.5rem,4.1vw,4.1rem); line-height: 1.1; font-weight: 400; color: #EAE6D8; margin-bottom: 1.2rem; letter-spacing: 0.04em; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); font-family: var(--en-serif); font-style: italic; }
 body.lang-zh .p3-title { font-family: var(--zh-display), var(--en-serif); }
 .p3-lead { font-size: 1.05rem; line-height: 1.8; color: #b0adc2; margin-bottom: 2rem; max-width: 580px; letter-spacing: 0.03em; font-family: var(--en-serif); }
 body.lang-zh .p3-lead { font-family: var(--zh-serif); }
