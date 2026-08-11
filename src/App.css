@@ -214,7 +214,7 @@ body.lang-zh .hero-stat-label { font-family: var(--zh-sans); font-size: 0.8rem; 
 .page-spirit { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 4rem; background: linear-gradient(180deg, var(--paper) 0%, #0a1628 100%); }
 .ps-header { text-align: center; margin-bottom: 3.5rem; }
 .ps-header h2 { font-size: clamp(2rem,3.8vw,3.4rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; line-height: 1.3; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .ps-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; }
+body.lang-zh .ps-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; }
 .ps-header p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 680px; margin: 0 auto 1.2rem; line-height: 1.7; letter-spacing: 0.08em; font-family: var(--en-serif); }
 body.lang-zh .ps-header p { font-family: var(--zh-serif); }
 .ps-header .accent-line { width: 48px; height: 3px; background: var(--terra-green); border-radius: 2px; margin: 0 auto; }
@@ -235,7 +235,7 @@ body.lang-zh .ps-card > p { font-family: var(--zh-serif); font-size: 0.9rem; lin
 .page-arch { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 4rem; background: linear-gradient(180deg, #0a1628 0%, var(--paper) 100%); }
 .pa-header { text-align: center; margin-bottom: 3rem; }
 .pa-header h2 { font-size: clamp(2rem,3.8vw,3.4rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; line-height: 1.3; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .pa-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; }
+body.lang-zh .pa-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; }
 .pa-header p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 680px; margin: 0 auto 1.2rem; line-height: 1.7; letter-spacing: 0.04em; font-family: var(--en-serif); }
 body.lang-zh .pa-header p { font-family: var(--zh-serif); }
 .pa-header .accent-line { width: 48px; height: 3px; background: var(--terra-green); border-radius: 2px; margin: 0 auto; }
@@ -267,7 +267,7 @@ body.lang-zh .pa-feat > p { font-family: var(--zh-serif); line-height: 1.8; lett
 .page-events { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 4rem; background: linear-gradient(180deg, var(--paper) 0%, #0a1628 100%); }
 .pe-header { text-align: center; margin-bottom: 3rem; }
 .pe-header h2 { font-size: clamp(2rem,3.8vw,3.4rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; line-height: 1.3; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .pe-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; }
+body.lang-zh .pe-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; }
 .pe-header p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 680px; margin: 0 auto 1.2rem; line-height: 1.7; letter-spacing: 0.04em; font-family: var(--en-serif); }
 body.lang-zh .pe-header p { font-family: var(--zh-serif); }
 .pe-header .accent-line { width: 48px; height: 3px; background: var(--terra-green); border-radius: 2px; margin: 0 auto; }
@@ -296,7 +296,7 @@ body.lang-zh .pe-btn { font-family: var(--zh-sans); }
 .page-partners { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 4rem; background: linear-gradient(180deg, #0a1628 0%, var(--paper) 100%); }
 .pp-header { text-align: center; margin-bottom: 3.5rem; }
 .pp-header h2 { font-size: clamp(2rem,3.8vw,3.4rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; line-height: 1.3; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .pp-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; }
+body.lang-zh .pp-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; }
 .pp-header .pp-sub { font-size: 1.1rem; color: rgba(255,255,255,0.6); max-width: 680px; margin: 0 auto 0.8rem; line-height: 1.7; font-family: var(--en-serif); font-weight: 600; }
 body.lang-zh .pp-header .pp-sub { font-family: var(--zh-display), var(--en-serif); }
 .pp-header .pp-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 720px; margin: 0 auto 1.2rem; line-height: 1.7; font-family: var(--en-serif); }
@@ -343,7 +343,7 @@ body.lang-zh .pp-btn-cta { font-family: var(--zh-sans); }
 .dc-title-accent { color: var(--terra-green); text-shadow: 0 0 28px rgba(0,229,196,0.4); font-style: italic; }
 .dc-title-base { color: var(--ink); }
 body.lang-zh .dc-title { font-family: var(--zh-display), var(--en-serif); }
-body.lang-zh .dc-title-accent { font-style: normal; }
+body.lang-zh .dc-title-accent { font-style: italic; }
 .dc-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; width: 100%; max-width: 460px; }
 .dc-chip { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0.95rem; border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; background: rgba(255,255,255,0.025); font-size: 0.92rem; color: rgba(255,255,255,0.85); letter-spacing: 0.03em; font-family: var(--en-serif); transition: border-color 0.2s, background 0.2s, transform 0.2s; }
 body.lang-zh .dc-chip { font-family: var(--zh-serif); }
@@ -422,11 +422,11 @@ body.lang-zh .rm-nlabel { font-family: var(--zh-serif); }
     .rm-track { flex-direction: column; align-items: stretch; padding: 0 0 0 30px; }
     .rm-line { display: none; }
     .rm-track::before { content: ''; position: absolute; left: 19px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(180deg, rgba(0,229,196,0.08), rgba(0,229,196,0.7), rgba(0,229,196,0.08)); box-shadow: 0 0 10px rgba(0,229,196,0.4); }
-    .rm-col { flex-direction: row; align-items: flex-start; min-height: 0; gap: 1rem; padding: 0.4rem 0 1.6rem; }
+    .rm-col { flex-direction: row; align-items: flex-start; justify-content: flex-start; min-height: 0; gap: 1rem; padding: 0.4rem 0 1.6rem; }
     .rm-col:hover .rm-dot { transform: none; }
     .rm-dot { flex-shrink: 0; width: 40px; height: 40px; margin-left: -30px; font-size: 0.78rem; }
     .rm-stem { display: none; }
-    .rm-card { position: static; transform: none; width: auto; max-width: none; text-align: left; padding: 0.2rem 0; }
+    .rm-card { position: static; transform: none; width: auto; max-width: none; text-align: left; padding: 0.2rem 0; flex: 1; }
     .rm-up .rm-card, .rm-down .rm-card { bottom: auto; top: auto; }
     .rm-nlabel { font-size: 0.95rem; }
 }
@@ -435,7 +435,7 @@ body.lang-zh .rm-nlabel { font-family: var(--zh-serif); }
 .page-two { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 6rem; background: linear-gradient(180deg, var(--paper) 0%, #0a1628 100%); }
 .page-two-header { text-align: center; margin-bottom: 3rem; }
 .page-two-header h2 { font-size: clamp(2rem,3.8vw,3.4rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; line-height: 1.3; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .page-two-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; }
+body.lang-zh .page-two-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; }
 .page-two-header p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto 1.2rem; line-height: 1.7; letter-spacing: 0.04em; font-family: var(--en-serif); }
 body.lang-zh .page-two-header p { font-family: var(--zh-serif); }
 .page-two-header .accent-line { width: 48px; height: 3px; background: var(--terra-green); border-radius: 2px; margin: 0 auto; }
@@ -501,7 +501,7 @@ body.lang-zh .p3-term-body { font-family: var(--zh-sans); font-size: 0.88rem; }
 .page-four { position: relative; z-index: 10; width: 100%; min-height: 100vh; scroll-snap-align: start; flex-shrink: 0; background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 4rem; }
 .p4-header { text-align: center; margin-bottom: 3rem; }
 .p4-header h2 { font-size: clamp(2rem,3.8vw,3.4rem); font-weight: 400; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 1rem; line-height: 1.3; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .p4-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; }
+body.lang-zh .p4-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; }
 .p4-header p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 680px; margin: 0 auto 1.2rem; line-height: 1.7; letter-spacing: 0.04em; font-family: var(--en-serif); }
 body.lang-zh .p4-header p { font-family: var(--zh-serif); }
 .p4-header .accent-line { width: 48px; height: 3px; background: var(--terra-green); border-radius: 2px; margin: 0 auto; }
@@ -568,7 +568,7 @@ body.lang-zh .p4-download-btn { font-family: var(--zh-sans); text-transform: non
 .p5-tag { font-family: 'VT323', monospace; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra-green); margin-bottom: 0.8rem; }
 body.lang-zh .p5-tag { font-family: var(--zh-sans); font-size: 0.85rem; font-weight: 700; text-transform: none; letter-spacing: 0.1em; }
 .p5-header h2 { font-size: clamp(2rem,3.5vw,3.2rem); font-weight: 400; color: var(--ink); margin-bottom: 0.8rem; font-family: var(--en-serif); font-style: italic; }
-body.lang-zh .p5-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: normal; letter-spacing: 0.06em; line-height: 1.3; }
+body.lang-zh .p5-header h2 { font-family: var(--zh-display), var(--en-serif); font-style: italic; letter-spacing: 0.06em; line-height: 1.3; }
 .p5-header p { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 1rem; line-height: 1.7; letter-spacing: 0.04em; font-family: var(--en-serif); }
 body.lang-zh .p5-header p { font-family: var(--zh-serif); }
 .p5-accent { width: 48px; height: 3px; background: var(--terra-green); border-radius: 2px; margin: 0 auto; }
