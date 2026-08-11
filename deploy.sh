@@ -1,6 +1,7 @@
 #!/bin/bash
 # Meta Assets 官网部署脚本
-# 用法: bash deploy.sh
+# 用法: bash deploy.sh   （用普通用户执行，不要 sudo）
+# 脚本内部只对部署步骤使用 sudo，git/npm 用当前用户
 
 set -e
 
@@ -15,9 +16,10 @@ echo "======================================"
 echo "项目目录: $PROJECT_DIR"
 echo "目标目录: $WEB_DIR"
 echo "分支:     $BRANCH"
+echo "当前用户: $(whoami)"
 echo ""
 
-# 1. 拉取最新代码
+# 1. 拉取最新代码（用当前用户，确保 SSH key 可用）
 echo "[1/4] 拉取最新代码..."
 cd "$PROJECT_DIR"
 git fetch origin
@@ -43,15 +45,14 @@ npm run build
 echo "✓ 构建完成"
 echo ""
 
-# 4. 部署到站点目录
+# 4. 部署到站点目录（需要 sudo，因为 /var/www 是 root 所有）
 echo "[4/4] 部署到 $WEB_DIR ..."
-mkdir -p "$WEB_DIR"
-# 用 rsync 同步，--delete 删除旧文件，排除不需要的
+sudo mkdir -p "$WEB_DIR"
 if command -v rsync &> /dev/null; then
-    rsync -av --delete "$PROJECT_DIR/dist/" "$WEB_DIR/"
+    sudo rsync -av --delete "$PROJECT_DIR/dist/" "$WEB_DIR/"
 else
-    rm -rf "$WEB_DIR"/*
-    cp -r "$PROJECT_DIR/dist/"* "$WEB_DIR/"
+    sudo rm -rf "$WEB_DIR"/*
+    sudo cp -r "$PROJECT_DIR/dist/"* "$WEB_DIR/"
 fi
 echo "✓ 部署完成"
 echo ""
