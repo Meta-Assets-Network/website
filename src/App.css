@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=VT323&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=VT323&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
 :root {
     --paper: #050D1A;
@@ -13,7 +13,7 @@
     --border-width: 1.5px;
     --zh-serif: 'Noto Serif SC', 'Songti SC', serif;
     --zh-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    --zh-display: 'MaShanZheng', 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+    --zh-display: 'MaShanZheng', 'Noto Serif SC', serif;
     --en-serif: 'EB Garamond', serif;
     --en-sans: 'Syne', sans-serif;
     --en-mono: 'Space Mono', monospace;
