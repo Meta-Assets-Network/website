@@ -190,8 +190,8 @@ function App() {
             </a>
             <div className="nav-dropdown-menu">
               <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.super_wallet']}</a>
-              <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.macswap']}</a>
-              <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.macbridge']}</a>
+              <a href="https://macswap.net/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.macswap']}</a>
+              <a href="https://macbridge.net/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.macbridge']}</a>
               <a href="https://clawservice.metaassetschain.org/" className="nav-dropdown-item" target="_blank" rel="noopener noreferrer" onClick={closeMenus}>{t['nav.clawmask_portal']}</a>
             </div>
           </div>

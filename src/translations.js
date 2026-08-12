@@ -162,7 +162,7 @@ export const translations = {
         'p2.r6c0': 'WEB4.0', 'p2.r6c1': '原生机器自治与价值结算', 'p2.r6c2': '部分支持', 'p2.r6c3': '部分支持',
         // DeCloud Banner
         'dc.eyebrow': 'DeCloud · AI 基础设施',
-        'dc.title': '一个 GATEWAY\n连接整个 AI ECONOMY',
+        'dc.title': '一个网关\n连接整个 AI 经济',
         'dc.f1': '331+ AI 大模型',
         'dc.f2': '一个 API',
         'dc.f3': 'MA 代币实时结算',
