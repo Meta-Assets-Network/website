@@ -236,11 +236,11 @@ function App() {
           </div>
           {/* 社区 / Community */}
           <div className={`nav-dropdown ${openDropdown === 'community' ? 'open' : ''}`}>
-            <a href="#page-events" className="top-nav-link nav-dropdown-trigger" onClick={(e) => { if (window.innerWidth <= 1024) { e.preventDefault(); toggleDropdown('community'); } }}>
+            <a href="#page-activity" className="top-nav-link nav-dropdown-trigger" onClick={(e) => { if (window.innerWidth <= 1024) { e.preventDefault(); toggleDropdown('community'); } }}>
               {t['nav.community']} <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
             </a>
             <div className="nav-dropdown-menu">
-              <a href="#page-events" className="nav-dropdown-item" onClick={closeMenus}>{t['nav.events']}</a>
+              <a href="#page-activity" className="nav-dropdown-item" onClick={closeMenus}>{t['nav.events']}</a>
               {/* 大使计划（暂时隐藏）
               <a href="#" className="nav-dropdown-item" onClick={(e) => { closeMenus(); handleComingSoon(e); }}>{t['nav.ambassador']}</a>
               */}
@@ -760,7 +760,8 @@ function App() {
         </div>
       </section>
 
-      {/* Page: Events */}
+      {/* Page: Events — HIDDEN，已被「最新活动」(page-activity) 取代。恢复：去掉下方 {false && ( ... )} 包裹 */}
+      {false && (
       <section className="page-events" id="page-events">
         <div className="pe-header">
           <h2>{t['pe.title']}</h2>
@@ -823,6 +824,45 @@ function App() {
               </div>
             </div>
             <a href="#" className="pe-btn" onClick={handleComingSoon}>{t['pe.c4btn']}</a>
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* Page: Latest Activity（最新活动 — DeCloud 开发者邀请） */}
+      <section className="page-activity" id="page-activity">
+        <div className="la-inner">
+          <div className="la-copy">
+            <div className="la-eyebrow">{t['la.eyebrow']}</div>
+            <h2 className="la-title">{t['la.title']}</h2>
+            <p className="la-subtitle">{t['la.subtitle']}</p>
+            <a href="https://macdecloud.com/" className="la-cta" target="_blank" rel="noopener noreferrer">
+              {t['la.cta']} <span className="la-cta-arrow">→</span>
+            </a>
+          </div>
+          <div className="la-flow">
+            <div className="la-line" aria-hidden="true" />
+            <div className="la-step">
+              <div className="la-step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>
+              </div>
+              <div className="la-step-num">01</div>
+              <div className="la-step-label">{t['la.s1']}</div>
+            </div>
+            <div className="la-step">
+              <div className="la-step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+              </div>
+              <div className="la-step-num">02</div>
+              <div className="la-step-label">{t['la.s2']}</div>
+            </div>
+            <div className="la-step">
+              <div className="la-step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="2" x2="12" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+              </div>
+              <div className="la-step-num">03</div>
+              <div className="la-step-label">{t['la.s3']}</div>
+            </div>
           </div>
         </div>
       </section>
