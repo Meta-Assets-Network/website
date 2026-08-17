@@ -22,7 +22,7 @@ function App() {
   // 把语言反映到 <body>，让 CSS 里 per-language 的字体规则（body.lang-zh …）真正生效。
   // 修复一个历史 bug：此前该 class 从未被设置，导致设计师指定的中文字体（MaShanZheng / Noto Serif SC / Noto Sans SC）从未启用。
   useEffect(() => {
-    document.body.classList.toggle('lang-zh', lang === 'zh');
+    document.body.classList.toggle('lang-zh', lang === 'zh' || lang === 'zh-TW');
     document.body.classList.toggle('lang-en', lang === 'en');
   }, [lang]);
 
@@ -60,8 +60,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'zh' : 'en';
+  const setLanguage = (newLang) => {
     setLang(newLang);
     localStorage.setItem('lang', newLang);
   };
@@ -247,13 +246,15 @@ function App() {
             </div>
           </div>
           <div className="lang-segmented lang-switch-mobile">
-            <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => { if (lang !== 'en') toggleLang(); }}>EN</button>
-            <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => { if (lang !== 'zh') toggleLang(); }}>中文</button>
+            <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => setLanguage('en')}>EN</button>
+            <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => setLanguage('zh')}>简</button>
+            <button className={`lang-seg ${lang === 'zh-TW' ? 'active' : ''}`} onClick={() => setLanguage('zh-TW')}>繁</button>
           </div>
         </div>
         <div className="lang-segmented lang-switch-desktop">
-          <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => { if (lang !== 'en') toggleLang(); }}>EN</button>
-          <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => { if (lang !== 'zh') toggleLang(); }}>中文</button>
+          <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => setLanguage('en')}>EN</button>
+          <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => setLanguage('zh')}>简</button>
+          <button className={`lang-seg ${lang === 'zh-TW' ? 'active' : ''}`} onClick={() => setLanguage('zh-TW')}>繁</button>
         </div>
         <div className="top-nav-wallet">
           <ConnectButton.Custom>

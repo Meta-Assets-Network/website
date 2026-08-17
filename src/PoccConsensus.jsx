@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DocPage from './DocPage';
 import enMdx from '../docs/pocc-consensus.en.mdx';
 import zhMdx from '../docs/pocc-consensus.zh.mdx';
+import zhTWMdx from '../docs/pocc-consensus.zh-TW.mdx';
 
 const frontmatter = {
   en: {
@@ -18,9 +19,16 @@ const frontmatter = {
     pdfUrl: '',
     badge: '可验证价值',
   },
+  'zh-TW': {
+    title: 'META ASSETS - 可驗證價值',
+    heroTitle: '可驗證價值',
+    heroSub: 'MA 鏈 POCC 共識機制',
+    pdfUrl: '',
+    badge: '可驗證價值',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
 
 function PoccConsensus() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

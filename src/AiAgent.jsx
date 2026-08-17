@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DocPage from './DocPage';
 import enMdx from '../docs/ai-agent.en.mdx';
 import zhMdx from '../docs/ai-agent.zh.mdx';
+import zhTWMdx from '../docs/ai-agent.zh-TW.mdx';
 
 const frontmatter = {
   en: {
@@ -18,9 +19,16 @@ const frontmatter = {
     pdfUrl: '',
     badge: 'Agent 自主性',
   },
+  'zh-TW': {
+    title: 'META ASSETS - Agent 自主性',
+    heroTitle: 'Agent 自主性',
+    heroSub: 'MA 鏈 AI Agent',
+    pdfUrl: '',
+    badge: 'Agent 自主性',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
 
 function AiAgent() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

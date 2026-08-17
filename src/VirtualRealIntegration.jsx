@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DocPage from './DocPage';
 import enMdx from '../docs/virtual-real-integration.en.mdx';
 import zhMdx from '../docs/virtual-real-integration.zh.mdx';
+import zhTWMdx from '../docs/virtual-real-integration.zh-TW.mdx';
 
 const frontmatter = {
   en: {
@@ -18,9 +19,16 @@ const frontmatter = {
     pdfUrl: '',
     badge: '虚实融合',
   },
+  'zh-TW': {
+    title: 'META ASSETS - 虛實融合',
+    heroTitle: '虛實融合',
+    heroSub: 'MA 鏈跨鏈中繼 + RWA 上鏈',
+    pdfUrl: '',
+    badge: '虛實融合',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
 
 function VirtualRealIntegration() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

@@ -30,8 +30,8 @@ export default function DocPage({ children, frontmatter = {} }) {
 
   useEffect(() => {
     document.title = frontmatter.title || t['wp.title'];
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    document.body.classList.toggle('lang-zh', lang === 'zh');
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang === 'zh-TW' ? 'zh-TW' : 'en';
+    document.body.classList.toggle('lang-zh', lang === 'zh' || lang === 'zh-TW');
     window.scrollTo(0, 0);
     return () => { document.body.classList.remove('lang-zh'); };
   }, [lang, frontmatter.title, t]);
@@ -67,8 +67,7 @@ export default function DocPage({ children, frontmatter = {} }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'zh' : 'en';
+  const setLanguage = (newLang) => {
     setLang(newLang);
     localStorage.setItem('lang', newLang);
     window.dispatchEvent(new CustomEvent('langchange', { detail: newLang }));
@@ -80,7 +79,7 @@ export default function DocPage({ children, frontmatter = {} }) {
   };
 
   return (
-    <div className={`wp-page ${lang === 'zh' ? 'lang-zh' : ''}`}>
+    <div className={`wp-page ${lang === 'zh' || lang === 'zh-TW' ? 'lang-zh' : ''}`}>
       {/* Top Nav */}
       <nav className="wp-top-nav">
         <div className="wp-top-nav-left">
@@ -96,9 +95,11 @@ export default function DocPage({ children, frontmatter = {} }) {
           </Link>
         </div>
         <div className="wp-top-nav-right">
-          <button className="wp-lang-switch" onClick={toggleLang}>
-            {lang === 'en' ? '中文' : 'EN'}
-          </button>
+          <div className="wp-lang-switch lang-segmented">
+            <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => setLanguage('en')}>EN</button>
+            <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => setLanguage('zh')}>简</button>
+            <button className={`lang-seg ${lang === 'zh-TW' ? 'active' : ''}`} onClick={() => setLanguage('zh-TW')}>繁</button>
+          </div>
           <a href={pdfUrl || '#'} download={pdfUrl || undefined} className={`wp-download-btn${!pdfUrl ? ' disabled' : ''}`} onClick={!pdfUrl ? e => e.preventDefault() : undefined}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />

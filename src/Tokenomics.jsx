@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DocPage from './DocPage';
 import enMdx from '../docs/tokenomics.en.mdx';
 import zhMdx from '../docs/tokenomics.zh.mdx';
+import zhTWMdx from '../docs/tokenomics.zh-TW.mdx';
 
 const frontmatter = {
   en: {
@@ -18,9 +19,16 @@ const frontmatter = {
     pdfUrl: '',
     badge: '经济蓝皮书',
   },
+  'zh-TW': {
+    title: 'META ASSETS - 經濟藍皮書',
+    heroTitle: '經濟藍皮書',
+    heroSub: 'MA 鏈經濟模型',
+    pdfUrl: '',
+    badge: '經濟藍皮書',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
 
 function Tokenomics() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

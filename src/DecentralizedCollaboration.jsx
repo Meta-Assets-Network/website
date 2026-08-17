@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DocPage from './DocPage';
 import enMdx from '../docs/decentralized-collaboration.en.mdx';
 import zhMdx from '../docs/decentralized-collaboration.zh.mdx';
+import zhTWMdx from '../docs/decentralized-collaboration.zh-TW.mdx';
 
 const frontmatter = {
   en: {
@@ -18,9 +19,16 @@ const frontmatter = {
     pdfUrl: '',
     badge: '去中心化协作',
   },
+  'zh-TW': {
+    title: 'META ASSETS - 去中心化協作',
+    heroTitle: '去中心化協作',
+    heroSub: 'MA 鏈全球算力網路',
+    pdfUrl: '',
+    badge: '去中心化協作',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
 
 function DecentralizedCollaboration() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
