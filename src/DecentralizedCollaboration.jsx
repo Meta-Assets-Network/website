@@ -3,6 +3,8 @@ import DocPage from './DocPage';
 import enMdx from '../docs/decentralized-collaboration.en.mdx';
 import zhMdx from '../docs/decentralized-collaboration.zh.mdx';
 import zhTWMdx from '../docs/decentralized-collaboration.zh-TW.mdx';
+import jaMdx from '../docs/decentralized-collaboration.ja.mdx';
+import koMdx from '../docs/decentralized-collaboration.ko.mdx';
 
 const frontmatter = {
   en: {
@@ -26,9 +28,23 @@ const frontmatter = {
     pdfUrl: '',
     badge: '去中心化協作',
   },
+  ja: {
+    title: 'META ASSETS - 分散型コラボレーション',
+    heroTitle: '分散型コラボレーション',
+    heroSub: 'MAチェーンのグローバルコンピューティングネットワーク',
+    pdfUrl: '',
+    badge: '分散型コラボレーション',
+  },
+  ko: {
+    title: 'META ASSETS - 탈중앙화 협업',
+    heroTitle: '탈중앙화 협업',
+    heroSub: 'MA 체인 글로벌 컴퓨팅 네트워크',
+    pdfUrl: '',
+    badge: '탈중앙화 협업',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx, ja: jaMdx, ko: koMdx };
 
 function DecentralizedCollaboration() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

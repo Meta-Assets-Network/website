@@ -3,6 +3,8 @@ import DocPage from './DocPage';
 import enMdx from '../docs/tokenomics.en.mdx';
 import zhMdx from '../docs/tokenomics.zh.mdx';
 import zhTWMdx from '../docs/tokenomics.zh-TW.mdx';
+import jaMdx from '../docs/tokenomics.ja.mdx';
+import koMdx from '../docs/tokenomics.ko.mdx';
 
 const frontmatter = {
   en: {
@@ -26,9 +28,23 @@ const frontmatter = {
     pdfUrl: '',
     badge: '經濟藍皮書',
   },
+  ja: {
+    title: 'META ASSETS - トークノミクスブルーペーパー',
+    heroTitle: 'トークノミクスブルーペーパー',
+    heroSub: 'MAチェーン経済モデル',
+    pdfUrl: '',
+    badge: 'トークノミクスブルーペーパー',
+  },
+  ko: {
+    title: 'META ASSETS - 토크노믹스 블루페이퍼',
+    heroTitle: '토크노믹스 블루페이퍼',
+    heroSub: 'MA 체인 경제 모델',
+    pdfUrl: '',
+    badge: '토크노믹스 블루페이퍼',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx, ja: jaMdx, ko: koMdx };
 
 function Tokenomics() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

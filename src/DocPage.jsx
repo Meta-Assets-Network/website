@@ -5,6 +5,14 @@ import { mdxComponents } from './mdx-components';
 import { translations } from './translations';
 import './DocPage.css';
 
+const LANGUAGES = [
+  { code: 'en', short: 'EN', label: 'English' },
+  { code: 'zh', short: '简', label: '简体中文' },
+  { code: 'zh-TW', short: '繁', label: '繁體中文' },
+  { code: 'ja', short: '日', label: '日本語' },
+  { code: 'ko', short: '한', label: '한국어' },
+];
+
 function extractToc(container) {
   if (!container) return [];
   const headings = container.querySelectorAll('h2, h3');
@@ -19,6 +27,7 @@ function extractToc(container) {
 
 export default function DocPage({ children, frontmatter = {} }) {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showBackTop, setShowBackTop] = useState(false);
@@ -30,7 +39,7 @@ export default function DocPage({ children, frontmatter = {} }) {
 
   useEffect(() => {
     document.title = frontmatter.title || t['wp.title'];
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang === 'zh-TW' ? 'zh-TW' : 'en';
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang === 'zh-TW' ? 'zh-TW' : lang === 'ja' ? 'ja' : lang === 'ko' ? 'ko' : 'en';
     document.body.classList.toggle('lang-zh', lang === 'zh' || lang === 'zh-TW');
     window.scrollTo(0, 0);
     return () => { document.body.classList.remove('lang-zh'); };
@@ -95,10 +104,19 @@ export default function DocPage({ children, frontmatter = {} }) {
           </Link>
         </div>
         <div className="wp-top-nav-right">
-          <div className="wp-lang-switch lang-segmented">
-            <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => setLanguage('en')}>EN</button>
-            <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => setLanguage('zh')}>简</button>
-            <button className={`lang-seg ${lang === 'zh-TW' ? 'active' : ''}`} onClick={() => setLanguage('zh-TW')}>繁</button>
+          <div className={`wp-lang-switch ${langMenuOpen ? 'open' : ''}`}>
+            <button className="wp-lang-trigger" onClick={() => setLangMenuOpen(!langMenuOpen)}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+              {LANGUAGES.find(l => l.code === lang)?.short}
+              <svg className="wp-lang-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+            {langMenuOpen && (
+              <div className="wp-lang-menu">
+                {LANGUAGES.map(l => (
+                  <button key={l.code} className={`wp-lang-item ${lang === l.code ? 'active' : ''}`} onClick={() => { setLanguage(l.code); setLangMenuOpen(false); }}>{l.label}</button>
+                ))}
+              </div>
+            )}
           </div>
           <a href={pdfUrl || '#'} download={pdfUrl || undefined} className={`wp-download-btn${!pdfUrl ? ' disabled' : ''}`} onClick={!pdfUrl ? e => e.preventDefault() : undefined}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

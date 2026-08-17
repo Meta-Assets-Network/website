@@ -4,6 +4,14 @@ import './App.css';
 import { translations } from './translations';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
+const LANGUAGES = [
+  { code: 'en', short: 'EN', label: 'English' },
+  { code: 'zh', short: '简', label: '简体中文' },
+  { code: 'zh-TW', short: '繁', label: '繁體中文' },
+  { code: 'ja', short: '日', label: '日本語' },
+  { code: 'ko', short: '한', label: '한국어' },
+];
+
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,6 +71,7 @@ function App() {
   const setLanguage = (newLang) => {
     setLang(newLang);
     localStorage.setItem('lang', newLang);
+    setOpenDropdown(null);
   };
 
   const handleComingSoon = (e) => {
@@ -245,16 +254,30 @@ function App() {
               */}
             </div>
           </div>
-          <div className="lang-segmented lang-switch-mobile">
-            <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => setLanguage('en')}>EN</button>
-            <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => setLanguage('zh')}>简</button>
-            <button className={`lang-seg ${lang === 'zh-TW' ? 'active' : ''}`} onClick={() => setLanguage('zh-TW')}>繁</button>
+          <div className={`nav-dropdown lang-dropdown lang-switch-mobile ${openDropdown === 'lang' ? 'open' : ''}`}>
+            <button className="lang-drop-trigger" onClick={() => toggleDropdown('lang')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+              {LANGUAGES.find(l => l.code === lang)?.short}
+              <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+            <div className="nav-dropdown-menu lang-drop-menu">
+              {LANGUAGES.map(l => (
+                <button key={l.code} className={`nav-dropdown-item lang-drop-item ${lang === l.code ? 'active' : ''}`} onClick={() => setLanguage(l.code)}>{l.label}</button>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="lang-segmented lang-switch-desktop">
-          <button className={`lang-seg ${lang === 'en' ? 'active' : ''}`} onClick={() => setLanguage('en')}>EN</button>
-          <button className={`lang-seg ${lang === 'zh' ? 'active' : ''}`} onClick={() => setLanguage('zh')}>简</button>
-          <button className={`lang-seg ${lang === 'zh-TW' ? 'active' : ''}`} onClick={() => setLanguage('zh-TW')}>繁</button>
+        <div className={`nav-dropdown lang-dropdown lang-switch-desktop ${openDropdown === 'lang' ? 'open' : ''}`}>
+          <button className="lang-drop-trigger" onClick={() => toggleDropdown('lang')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+            {LANGUAGES.find(l => l.code === lang)?.short}
+            <svg className="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
+          </button>
+          <div className="nav-dropdown-menu lang-drop-menu">
+            {LANGUAGES.map(l => (
+              <button key={l.code} className={`nav-dropdown-item lang-drop-item ${lang === l.code ? 'active' : ''}`} onClick={() => setLanguage(l.code)}>{l.label}</button>
+            ))}
+          </div>
         </div>
         <div className="top-nav-wallet">
           <ConnectButton.Custom>

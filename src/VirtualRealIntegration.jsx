@@ -3,6 +3,8 @@ import DocPage from './DocPage';
 import enMdx from '../docs/virtual-real-integration.en.mdx';
 import zhMdx from '../docs/virtual-real-integration.zh.mdx';
 import zhTWMdx from '../docs/virtual-real-integration.zh-TW.mdx';
+import jaMdx from '../docs/virtual-real-integration.ja.mdx';
+import koMdx from '../docs/virtual-real-integration.ko.mdx';
 
 const frontmatter = {
   en: {
@@ -26,9 +28,23 @@ const frontmatter = {
     pdfUrl: '',
     badge: '虛實融合',
   },
+  ja: {
+    title: 'META ASSETS - 実虚融合',
+    heroTitle: '実虚融合',
+    heroSub: 'MAチェーンのクロスチェーンリレー + RWA',
+    pdfUrl: '',
+    badge: '実虚融合',
+  },
+  ko: {
+    title: 'META ASSETS - 가상-현실 융합',
+    heroTitle: '가상-현실 융합',
+    heroSub: 'MA 체인 크로스체인 릴레이 + RWA',
+    pdfUrl: '',
+    badge: '가상-현실 융합',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx, ja: jaMdx, ko: koMdx };
 
 function VirtualRealIntegration() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

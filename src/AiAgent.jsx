@@ -3,6 +3,8 @@ import DocPage from './DocPage';
 import enMdx from '../docs/ai-agent.en.mdx';
 import zhMdx from '../docs/ai-agent.zh.mdx';
 import zhTWMdx from '../docs/ai-agent.zh-TW.mdx';
+import jaMdx from '../docs/ai-agent.ja.mdx';
+import koMdx from '../docs/ai-agent.ko.mdx';
 
 const frontmatter = {
   en: {
@@ -26,9 +28,23 @@ const frontmatter = {
     pdfUrl: '',
     badge: 'Agent 自主性',
   },
+  ja: {
+    title: 'META ASSETS - エージェント自律性',
+    heroTitle: 'エージェント自律性',
+    heroSub: 'MAチェーンのAIエージェント',
+    pdfUrl: '',
+    badge: 'エージェント自律性',
+  },
+  ko: {
+    title: 'META ASSETS - 에이전트 자율성',
+    heroTitle: '에이전트 자율성',
+    heroSub: 'MA 체인 AI 에이전트',
+    pdfUrl: '',
+    badge: '에이전트 자율성',
+  },
 };
 
-const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx };
+const mdxMap = { en: enMdx, zh: zhMdx, 'zh-TW': zhTWMdx, ja: jaMdx, ko: koMdx };
 
 function AiAgent() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');

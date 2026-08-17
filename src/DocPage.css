@@ -30,20 +30,28 @@
 .wp-top-nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: contain; }
 .wp-top-nav-logo span { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
 .wp-top-nav-right { display: flex; align-items: center; gap: 16px; }
-.wp-lang-switch {
+.wp-lang-switch { position: relative; }
+.wp-lang-trigger {
     font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--terra-green);
-    padding: 4px; border: 1px solid var(--terra-green); border-radius: 50px;
-    transition: all 0.3s; background: none; min-height: 36px;
-    display: inline-flex; align-items: center; gap: 2px;
+    padding: 8px 16px; border: 1px solid var(--terra-green); border-radius: 50px;
+    transition: all 0.3s; cursor: pointer; background: none; min-height: 36px;
+    display: inline-flex; align-items: center; gap: 6px;
 }
-.wp-lang-switch .lang-seg {
-    font-family: inherit; font-size: 0.78rem; font-weight: 700; color: var(--terra-green);
-    background: none; border: none; border-radius: 50px; padding: 4px 12px;
-    cursor: pointer; min-height: 28px; transition: all 0.3s;
+.wp-lang-trigger:hover { background: var(--terra-green); color: var(--paper); }
+.wp-lang-arrow { transition: transform 0.3s; }
+.wp-lang-switch.open .wp-lang-arrow { transform: rotate(180deg); }
+.wp-lang-menu {
+    position: absolute; top: calc(100% + 8px); right: 0; min-width: 150px;
+    background: var(--paper); border: 1px solid var(--terra-green); border-radius: 10px;
+    padding: 6px 0; box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 1100;
 }
-.wp-lang-switch .lang-seg.active { background: var(--terra-green); color: var(--paper); }
-.wp-lang-switch .lang-seg:not(.active):hover { background: rgba(0,0,0,0.05); }
-.wp-lang-switch:hover { background: none; }
+.wp-lang-item {
+    display: block; width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; color: inherit;
+    padding: 10px 16px; transition: all 0.2s;
+}
+.wp-lang-item:hover { background: rgba(0,229,196,0.08); color: var(--terra-green); }
+.wp-lang-item.active { color: var(--terra-green); }
 .wp-download-btn {
     display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
     background: var(--terra-green); color: var(--paper); border: none; border-radius: 50px;
