@@ -669,6 +669,10 @@ body.lang-zh .footer-col a { font-family: var(--zh-serif); letter-spacing: 0.02e
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; text-align: center; }
 .footer-bottom p { font-size: 0.7rem; color: rgba(255,255,255,0.4); font-family: var(--en-mono); }
 body.lang-zh .footer-bottom p { font-family: var(--zh-sans); }
+.footer-legal { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
+.footer-legal a { font-size: 0.72rem; color: rgba(255,255,255,0.45); font-family: var(--en-mono); text-decoration: none; transition: color 0.2s; }
+.footer-legal a:hover { color: var(--terra-green); }
+body.lang-zh .footer-legal a { font-family: var(--zh-sans); }
 
 @media (max-width: 768px) { .footer-top { flex-direction: column; } .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; } .footer-inner { padding: 0 1.5rem; } .site-footer { padding: 36px 0 20px; } }
 @media (max-width: 768px) { body { scroll-snap-type: none; } .hero-section, .ui-layer, .page-two, .page-three, .page-four, .page-five, .page-spirit, .page-arch, .page-events, .page-partners, .site-footer { scroll-snap-align: none; } }

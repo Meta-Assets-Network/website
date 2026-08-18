@@ -13,6 +13,8 @@ import AiAgent from './AiAgent.jsx'
 import PoccConsensus from './PoccConsensus.jsx'
 import VirtualRealIntegration from './VirtualRealIntegration.jsx'
 import DecentralizedCollaboration from './DecentralizedCollaboration.jsx'
+import PrivacyPolicy from './PrivacyPolicy.jsx'
+import TermsOfService from './TermsOfService.jsx'
 import { config } from './walletConfig'
 
 const queryClient = new QueryClient()
@@ -39,6 +41,8 @@ createRoot(document.getElementById('root')).render(
             <Route path="/pocc-consensus" element={<PoccConsensus />} />
             <Route path="/virtual-real-integration" element={<VirtualRealIntegration />} />
             <Route path="/decentralized-collaboration" element={<DecentralizedCollaboration />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
           </Routes>
         </BrowserRouter>
         </RainbowKitProvider>

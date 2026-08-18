@@ -153,9 +153,9 @@ export default function DocPage({ children, frontmatter = {} }) {
             <h1 className="wp-hero-title">{frontmatter.heroTitle}</h1>
             <div className="wp-hero-sub">{frontmatter.heroSub}</div>
             <div className="wp-hero-meta">
-              <span>META ASSETS Foundation</span>
-              <span>v1.0</span>
-              <span>2025</span>
+              <span>{frontmatter.metaOrg || 'META ASSETS Foundation'}</span>
+              <span>{frontmatter.metaVersion || 'v1.0'}</span>
+              <span>{frontmatter.metaDate || '2025'}</span>
             </div>
           </div>
 

@@ -17,6 +17,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalActive, setModalActive] = useState(false);
   const [aboutActive, setAboutActive] = useState(false);
+  const [contactActive, setContactActive] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [p4idx, setP4idx] = useState(0);
   const [ppSlide, setPpSlide] = useState(0);
@@ -913,19 +914,19 @@ function App() {
             <div className="footer-links">
               <div className="footer-col">
                 <h4>{t['footer.col1h']}</h4>
-                <a href="#whitepaper-technical">{t['footer.col1l1']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col1l2']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col1l3']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col1l4']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col1l5']}</a>
+                <a href="https://metaassets-1.gitbook.io/metaassets-docs" target="_blank" rel="noopener noreferrer">{t['footer.col1l1']}</a>
+                <Link to="/whitepaper-technical" onClick={closeMenus}>{t['footer.col1l2']}</Link>
+                <Link to="/tokenomics" onClick={closeMenus}>{t['footer.col1l3']}</Link>
+                <a href="https://faucet.machaintest.com/" target="_blank" rel="noopener noreferrer">{t['footer.col1l4']}</a>
+                <a href="https://ma-chain.xyz/" target="_blank" rel="noopener noreferrer">{t['footer.col1l5']}</a>
               </div>
               <div className="footer-col">
                 <h4>{t['footer.col2h']}</h4>
                 <a href="#" onClick={handleComingSoon}>{t['footer.col2l1']}</a>
-                <a href="https://macpool.net/" target="_blank" rel="noopener noreferrer">{t['footer.col2l2']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col2l3']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col2l4']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col2l5']}</a>
+                <a href="https://macswap.net/" target="_blank" rel="noopener noreferrer">{t['footer.col2l2']}</a>
+                <a href="https://macbridge.net/" target="_blank" rel="noopener noreferrer">{t['footer.col2l3']}</a>
+                <a href="https://clawservice.metaassetschain.org/" target="_blank" rel="noopener noreferrer">{t['footer.col2l4']}</a>
+                <a href="https://macdecloud.com/" target="_blank" rel="noopener noreferrer">{t['footer.col2l5']}</a>
               </div>
               <div className="footer-col">
                 <h4>{t['footer.col3h']}</h4>
@@ -939,15 +940,16 @@ function App() {
               <div className="footer-col">
                 <h4>{t['footer.col4h']}</h4>
                 <a href="#" onClick={handleAbout}>{t['footer.col4l1']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col4l2']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col4l3']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col4l4']}</a>
-                <a href="#" onClick={handleComingSoon}>{t['footer.col4l5']}</a>
+                <a href="mailto:mac@macyuanlian.com" onClick={(e) => { e.preventDefault(); setContactActive(true); }}>{t['footer.col4l2']}</a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
             <p>{t['footer.copy']}</p>
+            <div className="footer-legal">
+              <Link to="/privacy" onClick={closeMenus}>{t['footer.privacy']}</Link>
+              <Link to="/terms" onClick={closeMenus}>{t['footer.terms']}</Link>
+            </div>
           </div>
         </div>
       </footer>
@@ -973,6 +975,21 @@ function App() {
           <h2 className="about-modal-title">{t['about.title']}</h2>
           <div className="about-modal-body">
             {t['about.paragraphs'].map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Modal */}
+      <div className={`about-modal ${contactActive ? 'active' : ''}`} onClick={() => setContactActive(false)}>
+        <div className="about-modal-content" onClick={e => e.stopPropagation()}>
+          <button className="about-modal-close" onClick={() => setContactActive(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+          </button>
+          <h2 className="about-modal-title">{t['contact.title']}</h2>
+          <div className="about-modal-body">
+            <p style={{ textAlign: 'center' }}>
+              <a href="mailto:mac@macyuanlian.com" style={{ color: '#00E5C4', textDecoration: 'none', fontSize: '1.05em', fontFamily: 'var(--en-mono)', wordBreak: 'break-all' }}>mac@macyuanlian.com</a>
+            </p>
           </div>
         </div>
       </div>
