@@ -15,6 +15,7 @@ import VirtualRealIntegration from './VirtualRealIntegration.jsx'
 import DecentralizedCollaboration from './DecentralizedCollaboration.jsx'
 import PrivacyPolicy from './PrivacyPolicy.jsx'
 import TermsOfService from './TermsOfService.jsx'
+import SuperWallet from './SuperWallet.jsx'
 import { config } from './walletConfig'
 
 const queryClient = new QueryClient()
@@ -43,6 +44,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/decentralized-collaboration" element={<DecentralizedCollaboration />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/wallet" element={<SuperWallet />} />
           </Routes>
         </BrowserRouter>
         </RainbowKitProvider>
