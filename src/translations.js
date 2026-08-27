@@ -30,7 +30,7 @@ export const translations = {
         // DeCloud Banner
         'dc.eyebrow': 'DeCloud · AI Infrastructure',
         'dc.title': 'One GATEWAY\nConnecting the AI ECONOMY',
-        'dc.f1': '331+ AI Large Models',
+        'dc.f1': '152+ AI Large Models',
         'dc.f2': 'One Unified API',
         'dc.f3': 'Real-time MA Token Settlement',
         'dc.f4': 'Distributed Compute Marketplace',
@@ -203,7 +203,7 @@ export const translations = {
         // DeCloud Banner
         'dc.eyebrow': 'DeCloud · AI 基础设施',
         'dc.title': '一个网关\n连接整个 AI 经济',
-        'dc.f1': '331+ AI 大模型',
+        'dc.f1': '152+ AI 大模型',
         'dc.f2': '一个 API',
         'dc.f3': 'MA 代币实时结算',
         'dc.f4': '分布式算力超市',
@@ -375,7 +375,7 @@ export const translations = {
         // DeCloud Banner
         'dc.eyebrow': 'DeCloud · AI 基礎設施',
         'dc.title': '一個閘道器\n連線整個 AI 經濟',
-        'dc.f1': '331+ AI 大模型',
+        'dc.f1': '152+ AI 大模型',
         'dc.f2': '一個 API',
         'dc.f3': 'MA 代幣即時結算',
         'dc.f4': '分散式算力超市',
@@ -547,7 +547,7 @@ export const translations = {
         // DeCloud Banner
         'dc.eyebrow': 'DeCloud · AIインフラ',
         'dc.title': 'ひとつのゲートウェイで\nAI経済全体に接続',
-        'dc.f1': '331以上のAI大規模モデル',
+        'dc.f1': '152以上のAI大規模モデル',
         'dc.f2': '単一API',
         'dc.f3': 'MAトークンのリアルタイム決済',
         'dc.f4': '分散型コンピューティングマーケット',
@@ -719,7 +719,7 @@ export const translations = {
         // DeCloud Banner
         'dc.eyebrow': 'DeCloud · AI 인프라',
         'dc.title': '하나의 게이트웨이로\nAI 경제 전체를 연결',
-        'dc.f1': '331+ AI 대형 모델',
+        'dc.f1': '152+ AI 대형 모델',
         'dc.f2': '하나의 API',
         'dc.f3': 'MA 토큰 실시간 정산',
         'dc.f4': '분산 컴퓨팅 파워 마켓',
