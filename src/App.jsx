@@ -338,7 +338,7 @@ function App() {
             </div>
           </div>
           <div className="subtitle-pill-cluster">
-            <a href="#" className="pill" onClick={handleComingSoon}>{t['hero.pill1']}</a>
+            <Link to="/wallet" className="pill">{t['hero.pill1']}</Link>
             <a href="https://macdecloud.com/" className="pill accent" target="_blank" rel="noopener noreferrer">{t['hero.pill2']}</a>
           </div>
         </div>

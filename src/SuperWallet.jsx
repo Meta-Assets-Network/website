@@ -10,6 +10,12 @@ const TESTFLIGHT_URL = 'https://testflight.apple.com/join/hhb4ys9d';
 
 const DAPP_CHIPS = ['MA Swap', 'MA Bridge', 'DAO Governance', 'DeFi', 'NFT', 'Community Apps'];
 
+// 海报图（中文/繁中用中文版，其余语言用英文版）
+const POSTERS = {
+  zh: { home: '/images/posters/zh/home.jpg', chat: '/images/posters/zh/chat.jpg', addFriend: '/images/posters/zh/add-friend.jpg', discover: '/images/posters/zh/discover.jpg' },
+  en: { home: '/images/posters/en/home.jpg', chat: '/images/posters/en/chat.jpg', addFriend: '/images/posters/en/add-friend.jpg', discover: '/images/posters/en/discover.jpg' },
+};
+
 function SuperWallet() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
   const [tfModal, setTfModal] = useState(false);
@@ -23,6 +29,7 @@ function SuperWallet() {
 
   const t = translations[lang] || translations.en;
   const isZh = lang === 'zh' || lang === 'zh-TW';
+  const poster = isZh ? POSTERS.zh : POSTERS.en;
 
   const handleTestFlight = (e) => {
     e.preventDefault();
@@ -82,7 +89,7 @@ function SuperWallet() {
               <span>{t['sw.hero.f3']}</span>
             </div>
           </div>
-          <img className="sw-hero-img" src="/images/superwallet-wallet.png" alt="Super Wallet" />
+          <img className="sw-hero-img" src={poster.home} alt="Super Wallet" />
         </div>
       </section>
 
@@ -128,8 +135,8 @@ function SuperWallet() {
             </div>
           </div>
           <div className="sw-s3-imgs">
-            <img className="sw-s3-img-main" src="/images/superwallet-messages.png" alt="Messages" />
-            <img className="sw-s3-img-sub" src="/images/superwallet-profile.png" alt="Profile" />
+            <img className="sw-s3-img-main" src={poster.chat} alt="Messages" />
+            <img className="sw-s3-img-sub" src={poster.addFriend} alt="Profile" />
           </div>
         </div>
       </section>
@@ -146,7 +153,7 @@ function SuperWallet() {
               {DAPP_CHIPS.map(c => <span className="sw-chip" key={c}>{c}</span>)}
             </div>
           </div>
-          <img className="sw-s4-img" src="/images/superwallet-discover.png" alt="Discover" />
+          <img className="sw-s4-img" src={poster.discover} alt="Discover" />
         </div>
       </section>
 
