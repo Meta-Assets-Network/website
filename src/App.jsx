@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './App.css';
 import { translations } from './translations';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import SupportChatWidget from './components/SupportChatWidget';
 
 const LANGUAGES = [
   { code: 'en', short: 'EN', label: 'English' },
@@ -174,6 +175,7 @@ function App() {
 
   return (
     <>
+      <SupportChatWidget />
       {/* Navigation */}
       <nav className="top-nav">
         <a href="#hero" className="top-nav-logo">

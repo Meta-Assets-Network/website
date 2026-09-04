@@ -1,0 +1,86 @@
+.mac-support-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: var(--en-sans, system-ui, sans-serif);
+}
+
+.mac-support-launcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 58px;
+  padding: 5px 15px 5px 6px;
+  border: 1px solid rgba(56, 195, 84, .45);
+  border-radius: 999px;
+  color: #eaf5ef;
+  background: rgba(5, 9, 10, .9);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, .35), 0 0 26px rgba(56, 195, 84, .14);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.mac-support-launcher:hover,
+.mac-support-launcher:focus-visible {
+  transform: translateY(-2px);
+  border-color: #57e875;
+  box-shadow: 0 14px 42px rgba(0, 0, 0, .42), 0 0 34px rgba(56, 195, 84, .24);
+  outline: none;
+}
+
+.mac-support-launcher-label { font-size: .78rem; letter-spacing: .08em; font-weight: 700; }
+
+.mac-support-avatar { position: relative; display: inline-block; flex: 0 0 auto; }
+.mac-support-avatar svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mac-support-avatar-body { fill: #05090a; stroke: #38c354; stroke-width: 1.3; transform-origin: 50% 50%; animation: mac-support-breathe 3.2s ease-in-out infinite; }
+.mac-support-avatar-eye { fill: #f8fffd; transform-origin: center; }
+.mac-support-avatar-orbit { fill: none; stroke: rgba(31, 227, 194, .62); stroke-width: 1.2; stroke-dasharray: 8 16; animation: mac-support-orbit 7s linear infinite, mac-support-orbit-pulse 2.4s ease-in-out infinite; transform-origin: center; }
+.mac-support-avatar.is-active .mac-support-avatar-body { animation: mac-support-think 1.15s ease-in-out infinite; }
+.mac-support-avatar.is-active .mac-support-avatar-orbit { animation-duration: 3.4s, 1.25s; }
+.mac-support-avatar.is-active .mac-support-avatar-eye { animation: mac-support-blink 3.1s ease-in-out infinite, mac-support-eye-float 1.8s ease-in-out infinite; }
+.mac-support-avatar-eye-left { animation: mac-support-blink 5.2s ease-in-out infinite; }
+.mac-support-avatar-eye-right { animation: mac-support-blink 5.2s ease-in-out infinite .08s; }
+
+.mac-support-panel {
+  width: min(420px, calc(100vw - 32px));
+  height: min(680px, calc(100vh - 120px));
+  overflow: hidden;
+  border: 1px solid rgba(56, 195, 84, .3);
+  border-radius: 18px;
+  background: #080f10;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .5), 0 0 34px rgba(31, 227, 194, .12);
+}
+
+.mac-support-panel-header { display: flex; align-items: center; justify-content: space-between; min-height: 68px; padding: 10px 14px; border-bottom: 1px solid rgba(56, 195, 84, .18); background: linear-gradient(135deg, rgba(56, 195, 84, .12), rgba(31, 227, 194, .08)); }
+.mac-support-panel-title { display: flex; align-items: center; gap: 10px; }
+.mac-support-panel-title strong, .mac-support-panel-title span { display: block; }
+.mac-support-panel-title strong { color: #f5fffd; font-size: .9rem; }
+.mac-support-panel-title span { margin-top: 3px; color: rgba(255, 255, 255, .45); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
+.mac-support-close { border: 0; color: rgba(255, 255, 255, .62); background: none; font-size: 1.7rem; line-height: 1; cursor: pointer; }
+.mac-support-close:hover { color: #5bf2da; }
+.mac-support-frame { width: 100%; height: calc(100% - 68px); border: 0; background: #080f10; }
+.mac-support-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100% - 68px); padding: 28px; color: rgba(255, 255, 255, .72); text-align: center; }
+.mac-support-placeholder h2 { margin: 18px 0 8px; color: #f5fffd; font-size: 1.15rem; }
+.mac-support-placeholder p { max-width: 300px; margin: 0 0 12px; font-size: .82rem; line-height: 1.7; }
+.mac-support-placeholder code { color: #5bf2da; font-family: var(--en-mono, monospace); font-size: .76rem; }
+.mac-support-placeholder .mac-support-attribution { margin-top: 22px; color: rgba(255, 255, 255, .38); font-size: .68rem; }
+
+@keyframes mac-support-orbit { to { transform: rotate(360deg); } }
+@keyframes mac-support-orbit-pulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+@keyframes mac-support-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035, .97); } }
+@keyframes mac-support-think { 0%, 100% { transform: translateY(0) scale(1); } 35% { transform: translateY(-1px) scale(1.045, .96) rotate(-1deg); } 70% { transform: translateY(1px) scale(.97, 1.04) rotate(1deg); } }
+@keyframes mac-support-eye-float { 0%, 100% { translate: 0 0; } 50% { translate: 1px -1px; } }
+@keyframes mac-support-blink { 0%, 42%, 47%, 100% { transform: scaleY(1); } 44%, 45% { transform: scaleY(.08); } }
+
+@media (max-width: 560px) {
+  .mac-support-widget { right: 14px; bottom: 14px; }
+  .mac-support-launcher-label { display: none; }
+  .mac-support-launcher { padding-right: 6px; }
+  .mac-support-panel { width: calc(100vw - 28px); height: calc(100vh - 104px); }
+}
