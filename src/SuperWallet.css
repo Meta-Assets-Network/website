@@ -80,6 +80,7 @@
 .sw-platform h3 { font-size: 22px; margin: 14px 0 0; color: #fff; }
 .sw-platform p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 10px 0 22px; flex: 1; }
 .sw-platform .sw-btn { width: 100%; }
+.sw-platform-btns { display: flex; flex-direction: column; gap: 10px; }
 
 /* S6 保障 */
 .sw-s6 { background: #0b100e; padding: 34px 48px; display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }

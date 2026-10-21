@@ -5,6 +5,7 @@ import './SuperWallet.css';
 
 // APK 直接放仓库 public/downloads/，构建后从官网下载；App Store 链接待上架后替换
 const APK_URL = '/downloads/metaassets-wallet.apk';
+const GOOGLEPLAY_URL = 'https://play.google.com/store/apps/details?id=com.machain.metaassets';
 const APPSTORE_URL = '#';
 const TESTFLIGHT_URL = 'https://testflight.apple.com/join/hhb4ys9d';
 
@@ -80,6 +81,7 @@ function SuperWallet() {
             <p className="sw-p">{t['sw.hero.p']}</p>
             <div className="sw-btns">
               <a href={APK_URL} download className="sw-btn sw-btn-primary">{t['sw.apk']}</a>
+              <a href={GOOGLEPLAY_URL} target="_blank" rel="noopener noreferrer" className="sw-btn sw-btn-ghost">{t['sw.googleplay']}</a>
               <a href={APPSTORE_URL} className="sw-btn sw-btn-ghost">{t['sw.appstore']}</a>
               <a href={TESTFLIGHT_URL} onClick={handleTestFlight} className="sw-btn sw-btn-ghost">{t['sw.testflight']}</a>
             </div>
@@ -166,7 +168,10 @@ function SuperWallet() {
             <span className="sw-platform-tag">{t['sw.s5.android']}</span>
             <h3>{t['sw.s5.androidH']}</h3>
             <p>{t['sw.s5.androidP']}</p>
-            <a href={APK_URL} download className="sw-btn sw-btn-primary">{t['sw.apk']}</a>
+            <div className="sw-platform-btns">
+              <a href={APK_URL} download className="sw-btn sw-btn-primary">{t['sw.apk']}</a>
+              <a href={GOOGLEPLAY_URL} target="_blank" rel="noopener noreferrer" className="sw-btn sw-btn-ghost">{t['sw.googleplay']}</a>
+            </div>
           </div>
           <div className="sw-platform">
             <span className="sw-platform-tag">{t['sw.s5.ios']}</span>
