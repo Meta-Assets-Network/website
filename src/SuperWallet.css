@@ -101,6 +101,11 @@
 .sw-copy-btn { padding: 0 20px; font-size: 12px; flex-shrink: 0; }
 .sw-modal-alt { font-size: 12.5px; color: rgba(255,255,255,0.45); margin: 18px 0 0; }
 .sw-modal-alt a { color: #00e5c4; }
+/* iOS 企业签弹窗：信任步骤 + 前往下载按钮 */
+.sw-steps { text-align: left; margin: 0 0 20px; padding-left: 20px; }
+.sw-steps li { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.7); margin: 7px 0; }
+.sw-steps li::marker { color: #00e5c4; font-weight: 700; }
+.sw-ios-go { width: 100%; justify-content: center; margin-bottom: 14px; }
 @media (max-width: 480px) { .sw-modal-link-row { flex-direction: column; } .sw-copy-btn { padding: 11px 20px; } }
 
 /* Footer */

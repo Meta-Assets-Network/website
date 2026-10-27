@@ -6,7 +6,8 @@ import './SuperWallet.css';
 // APK 直接放仓库 public/downloads/，构建后从官网下载；App Store 链接待上架后替换
 const APK_URL = '/downloads/metaassets-wallet.apk';
 const GOOGLEPLAY_URL = 'https://play.google.com/store/apps/details?id=com.machain.metaassets';
-const APPSTORE_URL = '#';
+// iOS 企业签分发链接（App Store 审核通过后可移除）；安装后需在 设置-通用-VPN与设备管理 信任企业证书
+const IOS_ENTERPRISE_URL = 'https://dx2q.ttapk.cn/up3dkx';
 const TESTFLIGHT_URL = 'https://testflight.apple.com/join/hhb4ys9d';
 
 const DAPP_CHIPS = ['MA Swap', 'MA Bridge', 'DAO Governance', 'DeFi', 'NFT', 'Community Apps'];
@@ -21,6 +22,8 @@ function SuperWallet() {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en');
   const [tfModal, setTfModal] = useState(false);
   const [tfCopied, setTfCopied] = useState(false);
+  const [iosModal, setIosModal] = useState(false);
+  const [iosCopied, setIosCopied] = useState(false);
 
   useEffect(() => {
     const handleLangChange = () => setLang(localStorage.getItem('lang') || 'en');
@@ -36,6 +39,27 @@ function SuperWallet() {
     e.preventDefault();
     setTfCopied(false);
     setTfModal(true);
+  };
+
+  // iOS 企业签下载：先弹说明（安装后需手动信任企业证书），再引导去下载页
+  const handleIosDownload = (e) => {
+    e.preventDefault();
+    setIosCopied(false);
+    setIosModal(true);
+  };
+
+  const copyIosLink = async () => {
+    try {
+      await navigator.clipboard.writeText(IOS_ENTERPRISE_URL);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = IOS_ENTERPRISE_URL;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    setIosCopied(true);
   };
 
   const copyTfLink = async () => {
@@ -82,7 +106,7 @@ function SuperWallet() {
             <div className="sw-btns">
               <a href={APK_URL} download className="sw-btn sw-btn-primary">{t['sw.apk']}</a>
               <a href={GOOGLEPLAY_URL} target="_blank" rel="noopener noreferrer" className="sw-btn sw-btn-ghost">{t['sw.googleplay']}</a>
-              <a href={APPSTORE_URL} className="sw-btn sw-btn-ghost">{t['sw.appstore']}</a>
+              <a href={IOS_ENTERPRISE_URL} onClick={handleIosDownload} className="sw-btn sw-btn-ghost">{t['sw.ios']}</a>
               <a href={TESTFLIGHT_URL} onClick={handleTestFlight} className="sw-btn sw-btn-ghost">{t['sw.testflight']}</a>
             </div>
             <div className="sw-hero-feats">
@@ -177,7 +201,10 @@ function SuperWallet() {
             <span className="sw-platform-tag">{t['sw.s5.ios']}</span>
             <h3>{t['sw.s5.iosH']}</h3>
             <p>{t['sw.s5.iosP']}</p>
-            <a href={APPSTORE_URL} className="sw-btn sw-btn-ghost">{t['sw.s5.iosBtn']}</a>
+            <div className="sw-platform-btns">
+              <a href={IOS_ENTERPRISE_URL} onClick={handleIosDownload} className="sw-btn sw-btn-primary">{t['sw.s5.iosBtn']}</a>
+              <a href={TESTFLIGHT_URL} onClick={handleTestFlight} className="sw-btn sw-btn-ghost">{t['sw.testflight']}</a>
+            </div>
           </div>
         </div>
       </section>
@@ -193,6 +220,32 @@ function SuperWallet() {
           <p>{t['sw.s6.f2d']}</p>
         </div>
       </section>
+
+      {/* iOS 企业签下载 Modal */}
+      {iosModal && (
+        <div className="sw-modal" onClick={() => setIosModal(false)}>
+          <div className="sw-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="sw-modal-close" onClick={() => setIosModal(false)} aria-label="Close">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+            </button>
+            <h3>{t['sw.ios.h']}</h3>
+            <p className="sw-modal-tip">{t['sw.ios.tip']}</p>
+            <ol className="sw-steps">
+              <li>{t['sw.ios.s1']}</li>
+              <li>{t['sw.ios.s2']}</li>
+              <li>{t['sw.ios.s3']}</li>
+              <li>{t['sw.ios.s4']}</li>
+            </ol>
+            <a href={IOS_ENTERPRISE_URL} target="_blank" rel="noopener noreferrer" className="sw-btn sw-btn-primary sw-ios-go">{t['sw.ios.go']}</a>
+            <div className="sw-modal-link-row">
+              <code>{IOS_ENTERPRISE_URL}</code>
+              <button className="sw-btn sw-btn-primary sw-copy-btn" onClick={copyIosLink}>
+                {iosCopied ? t['sw.tf.copied'] : t['sw.tf.copy']}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* TestFlight Modal */}
       {tfModal && (
